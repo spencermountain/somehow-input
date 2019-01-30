@@ -16,12 +16,19 @@ class PlusMinus extends Input {
   }
   moreCallbacks() {
     setTimeout(() => {
+      let {min, max} = this.attrs
       let el = document.getElementById(this._id)
       document.getElementById(this._id + 'plus').onclick = () => {
-        el.value = Number(el.value) + 1
+        let num = Number(el.value) + 1
+        if (num > min && num < max) {
+          el.value = num
+        }
       }
       document.getElementById(this._id + 'minus').onclick = () => {
-        el.value = Number(el.value) + 1
+        let num = Number(el.value) - 1
+        if (num > min && num < max) {
+          el.value = num
+        }
       }
       console.log(el, el.value)
     }, 60)
@@ -31,16 +38,16 @@ class PlusMinus extends Input {
     if (this._label) {
       label = this._label + ':'
     }
-    let buttonStyle = 'cursor:pointer; user-select: none;'
+    let buttonStyle = 'cursor:pointer; user-select: none; -moz-user-select: none;'
     this.setCallback()
     this.moreCallbacks()
     let {min, max} = this.attrs
     return this.h`<div class="col">
       <div class="grey">${label}</div>
       <div class="row" style="justify-content: center;">
-        <div class="bggreygreen rounded h3 w4 white f2 shadow" style=${buttonStyle} id="${this._id + 'plus'}">+</div>
-        <input id="${this._id}" class="input shadow center" min=${min} max=${max} style="max-width:6rem; margin:0px;" type="number" value="${this._value}"/>
         <div class="bggreygreen rounded h3 w4 white f2 shadow" style=${buttonStyle} id="${this._id + 'minus'}">−</div>
+        <input id="${this._id}" class="input shadow center" min=${min} max=${max} style="max-width:6rem; margin:0px;" type="number" value="${this._value}"/>
+        <div class="bggreygreen rounded h3 w4 white f2 shadow" style=${buttonStyle} id="${this._id + 'plus'}">+</div>
       </div>
     </div>`
   }

@@ -73,6 +73,13 @@ return h;
 var inputs = _dereq_('./src'); // const somehow = require('./builds/somehow')
 
 
+var input = inputs.input({
+  el: '#input',
+  width: 600,
+  value: 'tofu',
+  label: 'input'
+});
+document.querySelector('#input').innerHTML = input.build();
 var slider = inputs.slider({
   el: '#slider',
   width: 600,
@@ -82,13 +89,6 @@ var slider = inputs.slider({
   label: 'number'
 });
 document.querySelector('#slider').innerHTML = slider.build();
-var input = inputs.input({
-  el: '#input',
-  width: 600,
-  value: 50,
-  label: 'input'
-});
-document.querySelector('#input').innerHTML = input.build();
 var plusMinus = inputs.plusMinus({
   el: '#plusminus',
   width: 600,
@@ -231,7 +231,7 @@ module.exports = Input;
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["<div class=\"col\">\n      <div class=\"grey\">", "</div>\n      <div class=\"row\" style=\"justify-content: center;\">\n        <div class=\"bggreygreen rounded h3 w4 white f2 shadow\" style=", " id=\"", "\">+</div>\n        <input id=\"", "\" class=\"input shadow center\" min=", " max=", " style=\"max-width:6rem; margin:0px;\" type=\"number\" value=\"", "\"/>\n        <div class=\"bggreygreen rounded h3 w4 white f2 shadow\" style=", " id=\"", "\">\u2212</div>\n      </div>\n    </div>"]);
+  var data = _taggedTemplateLiteral(["<div class=\"col\">\n      <div class=\"grey\">", "</div>\n      <div class=\"row\" style=\"justify-content: center;\">\n        <div class=\"bggreygreen rounded h3 w4 white f2 shadow\" style=", " id=\"", "\">\u2212</div>\n        <input id=\"", "\" class=\"input shadow center\" min=", " max=", " style=\"max-width:6rem; margin:0px;\" type=\"number\" value=\"", "\"/>\n        <div class=\"bggreygreen rounded h3 w4 white f2 shadow\" style=", " id=\"", "\">+</div>\n      </div>\n    </div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -293,14 +293,25 @@ function (_Input) {
       var _this2 = this;
 
       setTimeout(function () {
+        var _this2$attrs = _this2.attrs,
+            min = _this2$attrs.min,
+            max = _this2$attrs.max;
         var el = document.getElementById(_this2._id);
 
         document.getElementById(_this2._id + 'plus').onclick = function () {
-          el.value = Number(el.value) + 1;
+          var num = Number(el.value) + 1;
+
+          if (num > min && num < max) {
+            el.value = num;
+          }
         };
 
         document.getElementById(_this2._id + 'minus').onclick = function () {
-          el.value = Number(el.value) + 1;
+          var num = Number(el.value) - 1;
+
+          if (num > min && num < max) {
+            el.value = num;
+          }
         };
 
         console.log(el, el.value);
@@ -315,13 +326,13 @@ function (_Input) {
         label = this._label + ':';
       }
 
-      var buttonStyle = 'cursor:pointer; user-select: none;';
+      var buttonStyle = 'cursor:pointer; user-select: none; -moz-user-select: none;';
       this.setCallback();
       this.moreCallbacks();
       var _this$attrs = this.attrs,
           min = _this$attrs.min,
           max = _this$attrs.max;
-      return this.h(_templateObject(), label, buttonStyle, this._id + 'plus', this._id, min, max, this._value, buttonStyle, this._id + 'minus');
+      return this.h(_templateObject(), label, buttonStyle, this._id + 'minus', this._id, min, max, this._value, buttonStyle, this._id + 'plus');
     }
   }]);
 
