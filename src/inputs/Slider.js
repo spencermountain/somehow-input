@@ -1,6 +1,6 @@
-// const fns = require('../_fns')
-const colors = require('spencer-color').colors
 const Input = require('./Input')
+const uid = require('../uid')
+
 const defaults = {
   min: -100,
   max: 100,
@@ -9,70 +9,34 @@ const defaults = {
 }
 
 class Slider extends Input {
-  constructor(obj = {}, world) {
-    super(obj, world)
+  constructor(obj = {}) {
+    super(obj)
     this.attrs = Object.assign({}, defaults, this.attrs)
-    this._title = ''
-    this._labels = []
-    this._orientation = 'horizontal'
-    if (this._value === '') {
-      this._value = 50
+    this._id = obj.id || uid('slider')
+    this.display_id = this._id + 'display'
+    if (obj.show_number === undefined) {
+      obj.show_number = true
     }
-    this.id = obj.id || 'slider'
+    this.show_number = obj.show_number
   }
-  orientation(str) {
-    this._orientation = str
-    return this
-  }
-  labels(data) {
-    this._labels = data.map((a) => {
-      return {
-        value: a[1],
-        label: a[0],
-      }
-    })
-    return this
-  }
-  place(x = 0) {
-    let {max, min, size} = this.attrs
-    let range = max - min
-    let spot = x - min
-    let percent = spot / range
-    return percent * size
-  }
-  makeLabels() {
-    let h = this.h
-    return this._labels.map((o) => {
-      let y = this.place(o.value)
-      let style = `position:absolute; top:${y}px; font-size:10px; color:${colors.lightgrey}; left:10px;`
-      return h`<div style="${style}"> ${o.label}</div>`
-    })
-  }
-  title(str) {
-    this._title = str
-  }
-  makeStyle() {
-    let size = this.attrs.size
-    let styles = {
-      box: `position:relative; width:${size}px; height:60px;`,
-      input: `width:${size}px;`,
-      title: `position:absolute; top:-20px; left:-20px; color:${colors.lightgrey}; font-size:14px;`
+  redraw() {
+    if (this.show_number) {
+      let el = document.getElementById(this.display_id)
+      el.innerHTML = this._value
     }
-    if (this._orientation === 'vertical') {
-      styles.input += `transform: rotate(90deg); transform-origin: 0% 0%;`
-      styles.box = `position:relative; height:${size}px; width:100px;`
-    }
-    return styles
   }
   build() {
     let h = this.h
     this.setCallback()
-    let styles = this.makeStyle()
-    return h`<div style="${styles.box}">
-        <div style="${styles.title}">${this._title}</div>
-        ${this.makeLabels()}
-        <input type="range" id="${this.id}" style="${styles.input}" value=${this._value} ...${this.attrs}/>
-      </div>`;
+    let label = ''
+    if (this._label) {
+      label = this._label + ':'
+    }
+    return h`<div class="col w100p">
+      <div class="grey">${label}</div>
+      <input class="w100p" type="range" id="${this._id}" value=${this._value} ...${this.attrs}/>
+      <div id="${this.display_id}" class="grey">${this._value}</div>
+    </div>`
   }
 }
 module.exports = Slider

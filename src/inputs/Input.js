@@ -1,36 +1,35 @@
 const htm = require('htm')
 const vhtml = require('vhtml');
+const uid = require('../uid')
 const defaults = {}
 
 class Input {
   constructor(obj = {}) {
     if (typeof obj === 'string') {
-      this.id = obj
+      this._id = obj
       obj = {}
     }
     this.attrs = Object.assign({}, defaults, obj)
-    this.id = obj.id || 'input'
+    this._id = obj.id || uid('input')
     this._value = obj.value || ''
+    this._label = obj.label || ''
     let cb = obj.cb || function() {}
     this.callback = (val) => {
       this._value = val
+      this.redraw()
       cb(val)
     }
-    this.mounted = false
     this.el = null
     this.h = htm.bind(vhtml);
+
+    this.el = obj.el || null
   }
   bind(fn) {
     this.h = htm.bind(fn);
   }
-  default(val) {
-    this._value = val
-    this.world.state[this.id] = this._value
-    return this
-  }
   setCallback() {
     setTimeout(() => {
-      let el = document.getElementById(this.id)
+      let el = document.getElementById(this._id)
       if (el) {
         el.addEventListener('input', (e) => {
           this.callback(e.target.value)
@@ -38,10 +37,17 @@ class Input {
       }
     }, 50)
   }
+  redraw() {}
   build() {
-    let h = this.world.html
+    let label = ''
+    if (this._label) {
+      label = this._label + ':'
+    }
     this.setCallback()
-    return h`<input id="${this._id}" class="input" type="text" value="${this._value}"/>`
+    return this.h`<div class="col">
+      <div class="grey">${label}</div>
+      <input id="${this._id}" class="input" style="max-width:8rem;" type="text" value="${this._value}"/>
+    </div>`
   }
 }
 module.exports = Input
