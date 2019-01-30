@@ -9,6 +9,7 @@
   "scripts": {
     "start": "budo scratch.js:assets/bundle.js --live",
     "watch": "npm run start",
+    "build:demo": "browserify scratch.js -t [ babelify --presets [ @babel/preset-env ] ] | derequire > ./assets/bundle.js",
     "build": "node ./scripts/build.js"
   },
   "files": [

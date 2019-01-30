@@ -1,9 +1,4 @@
-/* somehow v0.0.1
-   github.com/spencermountain/somehow-input
-   MIT
-*/
-
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.somehowInput = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 !function(){var n={},e=JSON.stringify;function t(e){for(var t=".",c=0;c<e.length;c++)t+=e[c].length+","+e[c];return(n[t]||(n[t]=i(e)))(this,arguments)}var i=function(n){for(var t,i,c,r,s,o=0,u="return ",a="",f="",h=0,l="",g="",d="",v=0,m=function(){c?9===o?(h++&&(u+=","),u+="h("+(f||e(a)),o=0):13===o||0===o&&"..."===a?(0===o?(d||(d=")",l=l?"Object.assign("+l:"Object.assign({}"),l+=g+","+f,g=""):r&&(l+=l?","+(g?"":"{"):"{",g="}",l+=e(r)+":",l+=f||(s||a)&&e(a)||"true",r=""),s=!1):0===o&&(o=13,r=a,a=f="",m(),o=0):(f||(a=a.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))&&(h++&&(u+=","),u+=f||e(a)),a=f=""},p=0;p<n.length;p++){p>0&&(c||m(),f="$["+p+"]",m());for(var O=0;O<n[p].length;O++){if(i=n[p].charCodeAt(O),c){if(39===i||34===i){if(v===i){v=0;continue}if(0===v){v=i;continue}}if(0===v)switch(i){case 62:m(),47!==o&&(u+=l?","+l+g+d:",null"),t&&(u+=")"),c=0,l="",o=1;continue;case 61:o=13,s=!0,r=a,a="";continue;case 47:t||(t=!0,9!==o||a.trim()||(a=f="",o=47));continue;case 9:case 10:case 13:case 32:m(),o=0;continue}}else if(60===i){m(),c=1,d=g=l="",t=s=!1,o=9;continue}a+=n[p].charAt(O)}}return m(),Function("h","$",u)};"undefined"!=typeof module?module.exports=t:self.htm=t}();
 
 },{}],2:[function(_dereq_,module,exports){
@@ -75,6 +70,36 @@ return h;
 },{}],3:[function(_dereq_,module,exports){
 "use strict";
 
+var inputs = _dereq_('./src'); // const somehow = require('./builds/somehow')
+
+
+var slider = inputs.slider({
+  el: '#slider',
+  width: 600,
+  max: 200,
+  min: -100,
+  value: 50,
+  label: 'number'
+});
+document.querySelector('#slider').innerHTML = slider.build();
+var input = inputs.input({
+  el: '#input',
+  width: 600,
+  value: 50,
+  label: 'input'
+});
+document.querySelector('#input').innerHTML = input.build();
+var plusMinus = inputs.plusMinus({
+  el: '#plusminus',
+  width: 600,
+  value: 50,
+  label: 'input'
+});
+document.querySelector('#plusminus').innerHTML = plusMinus.build();
+
+},{"./src":4}],4:[function(_dereq_,module,exports){
+"use strict";
+
 var Input = _dereq_('./inputs/Input');
 
 var Slider = _dereq_('./inputs/Slider');
@@ -94,7 +119,7 @@ var inputs = {
 };
 module.exports = inputs;
 
-},{"./inputs/Input":4,"./inputs/PlusMinus":5,"./inputs/Slider":6}],4:[function(_dereq_,module,exports){
+},{"./inputs/Input":5,"./inputs/PlusMinus":6,"./inputs/Slider":7}],5:[function(_dereq_,module,exports){
 "use strict";
 
 function _templateObject() {
@@ -200,7 +225,7 @@ function () {
 
 module.exports = Input;
 
-},{"../uid":7,"htm":1,"vhtml":2}],5:[function(_dereq_,module,exports){
+},{"../uid":8,"htm":1,"vhtml":2}],6:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -305,7 +330,7 @@ function (_Input) {
 
 module.exports = PlusMinus;
 
-},{"../uid":7,"./Input":4}],6:[function(_dereq_,module,exports){
+},{"../uid":8,"./Input":5}],7:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -402,7 +427,7 @@ function (_Input) {
 
 module.exports = Slider;
 
-},{"../uid":7,"./Input":4}],7:[function(_dereq_,module,exports){
+},{"../uid":8,"./Input":5}],8:[function(_dereq_,module,exports){
 "use strict";
 
 //may need to change when the term really-transforms? not sure.
@@ -418,5 +443,4 @@ var uid = function uid(str) {
 
 module.exports = uid;
 
-},{}]},{},[3])(3)
-});
+},{}]},{},[3]);
