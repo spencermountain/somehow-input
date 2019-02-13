@@ -22,13 +22,14 @@ class Tabs extends Input {
       let tabs = document.querySelectorAll('.somehow-tab')
       for (let i = 0; i < tabs.length; i += 1) {
         let tab = tabs[i]
-        tab.onclick = function(e) {
+        tab.onclick = (e) => {
           for (let j = 0; j < tabs.length; j += 1) {
             tabs[j].style.color = defaults.light
             tabs[j].style['border-color'] = 'rgba(181, 187, 191, 0.1)'
           }
           e.target.style.color = defaults.selected
           e.target.style['border-color'] = defaults.selected
+          this.callback(this.tabs[i])
         }
       }
     }, 60)
@@ -43,7 +44,7 @@ class Tabs extends Input {
       } else {
         style += `border-bottom:3px solid ${defaults.selected}; color:${defaults.selected}`
       }
-      return h`<div class="pointer somehow-tab f2 grow" style="${style}">${str}</div>`
+      return h`<div class="pointer somehow-tab f1 grow" style="${style}">${str}</div>`
     })
     return tabs
   }

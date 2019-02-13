@@ -13,7 +13,7 @@ class Textarea extends Input {
   constructor(obj = {}) {
     super(obj)
     this.attrs = Object.assign({}, defaults, this.attrs)
-    this._id = obj.id || uid('slider')
+    this._id = obj.id || uid('textarea')
     this.display_id = this._id + 'display'
     this.show = obj.show
     this.color = obj.color || defaults.color
@@ -22,22 +22,24 @@ class Textarea extends Input {
     setTimeout(() => {
       document.getElementById(this._id + '_btn').onclick = () => {
         this.show = !this.show
+        let el = document.getElementById(this._id)
         if (this.show) {
-          document.getElementById(this._id).style.height = '5rem'
-          document.getElementById(this._id).style.padding = '1rem'
-          document.getElementById(this._id).style.visibility = 'visible'
-          document.getElementById(this._id).style.resize = 'both'
+          el.style.height = '16rem'
+          el.style.padding = '1rem'
+          el.style.visibility = 'visible'
+          el.style.resize = 'both'
+          el.scrollTop = el.scrollHeight
         } else {
-          document.getElementById(this._id).style.height = '0rem'
-          document.getElementById(this._id).style.padding = '0rem'
-          document.getElementById(this._id).style.visibility = 'hidden'
-          document.getElementById(this._id).style.resize = 'none'
+          el.style.height = '0rem'
+          el.style.padding = '0rem'
+          el.style.visibility = 'hidden'
+          el.style.resize = 'none'
         }
       }
     }, 60)
   }
   makeStyle() {
-    let style = 'transition: all 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);'
+    let style = 'transition: all 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940); color:grey; font-size:10px; font-family: monospace;'
     style += ' visibility: hidden; height:0px; padding:0px; resize: none;'
     return style
   }
@@ -51,7 +53,7 @@ class Textarea extends Input {
     }
     let style = 'border-bottom:3px solid ' + this.color
     let styleplus = 'color:' + this.color
-    return h`<div class="col w8">
+    return h`<div class="col w9">
       <div class="grey pointer b3" style=${style} id="${this._id + '_btn'}">${label}<span style=${styleplus}>＋</span></div>
       <textarea class="w7 rounded" id="${this._id}" style=${this.makeStyle()} ...${this.attrs}>${this._value}</textarea>
     </div>`
