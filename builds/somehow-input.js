@@ -1,4 +1,4 @@
-/* somehow v0.0.3
+/* somehow v0.0.4
    github.com/spencermountain/somehow-input
    MIT
 */
@@ -119,8 +119,28 @@ module.exports = inputs;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["<div class=\"col w100p\">\n      <div class=\"grey\">", "</div>\n      <input class=\"w8\" type=\"range\" id=\"", "\" value=", " ...", "/>\n      <div class=\"w8 relative center f09\">\n        <div class=\"absolute grey\" style=\"", "\" id=\"", "\">", "</div>\n      </div>\n    </div>"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["<div class=\"\">", "</div>"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["<div class=\"col w100p\">\n      <div class=\"grey\">", "</div>\n      <input class=\"w8\" type=\"range\" id=\"", "\" value=", " ...", "/>\n      <div id=\"", "\" class=\"grey\">", "</div>\n    </div>"]);
+  var data = _taggedTemplateLiteral(["<div class=\"\">", "</div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -152,11 +172,11 @@ var Input = _dereq_('./Input');
 var uid = _dereq_('../uid');
 
 var defaults = {
-  min: 1,
-  max: 5,
+  min: 0,
+  max: 4,
   step: 1,
   size: 200,
-  durations: ['day', 'week', 'month', '3 month', 'year']
+  durations: ['1 day', '1 week', '1 month', '3 months', '1 year']
 };
 
 var Duration =
@@ -186,12 +206,23 @@ function (_Input) {
   }
 
   _createClass(Duration, [{
+    key: "getDuration",
+    value: function getDuration() {
+      var h = this.h;
+      var str = this.durations[this._value] || '';
+      var arr = str.split(' ').map(function (s) {
+        return h(_templateObject(), s);
+      });
+      return h(_templateObject2(), arr);
+    }
+  }, {
     key: "redraw",
     value: function redraw() {
-      if (this.show_number) {
-        var el = document.getElementById(this.display_id);
-        el.innerHTML = this._value;
-      }
+      var el = document.getElementById(this.display_id);
+      el.innerHTML = this.getDuration();
+      var percent = Number(this._value) / this.attrs.max * 100; //w8
+
+      el.style.left = "".concat(percent, "%");
     }
   }, {
     key: "build",
@@ -204,7 +235,9 @@ function (_Input) {
         label = this._label + ':';
       }
 
-      return h(_templateObject(), label, this._id, this._value, this.attrs, this.display_id, this._value);
+      var percent = this._value / this.durations.length * 100;
+      var style = "top:10px; left:".concat(percent, "%; transform:translateX(-10px)");
+      return h(_templateObject3(), label, this._id, this._value, this.attrs, style, this.display_id, this.getDuration());
     }
   }]);
 
