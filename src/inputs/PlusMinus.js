@@ -30,7 +30,6 @@ class PlusMinus extends Input {
           el.value = num
         }
       }
-      console.log(el, el.value)
     }, 60)
   }
   build() {

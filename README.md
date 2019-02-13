@@ -30,7 +30,8 @@ let slider = inputs.slider({
   max: 200,
   min: -100,
   value: 50,
-  label: 'number'
+  label: 'number',
+  cb:(val)=>console.log(val)
 })
 document.body.innerHTML = slider.build()
 ```
