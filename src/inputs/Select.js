@@ -33,9 +33,13 @@ class Select extends Input {
         ${str}
       </options>`
     })
-    return h`<div class="col maxw7">
+    let style = ''
+    if (this.attrs.width) {
+      style = `max-width:${this.attrs.width}px; min-width:10px;`
+    }
+    return h`<div class="col maxw7" >
         <div class="grey">${label}</div>
-        <select id="${this._id}" value="${this.attrs.value}">
+        <select id="${this._id}" value="${this.attrs.value}" style=${style}>
         ${options}
         </select>
       </div>`

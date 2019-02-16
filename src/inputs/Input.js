@@ -56,9 +56,13 @@ class Input {
       label = this._label + ':'
     }
     this.setCallback()
+    let style = ''
+    if (this.attrs.width) {
+      style = `max-width:${this.attrs.width}px; min-width:10px;`
+    }
     return this.h`<div class="col">
       <div class="grey">${label}</div>
-      <input id="${this._id}" class="input" style="max-width:8rem;" type="text" value="${this._value}"/>
+      <input id="${this._id}" class="input" style="max-width:8rem; padding-right:0px;" type="text" style=${style} value="${this._value}"/>
     </div>`
   }
 }
