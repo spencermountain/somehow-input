@@ -44,9 +44,9 @@ class PlusMinus extends Input {
     return this.h`<div class="col">
       <div class="grey">${label}</div>
       <div class="row" style="justify-content: center;">
-        <div class="bggreygreen rounded h3 w4 white f2 shadow" style=${buttonStyle} id="${this._id + 'minus'}">−</div>
-        <input id="${this._id}" class="input shadow center" min=${min} max=${max} style="max-width:6rem; margin:0px;" type="number" value="${this._value}"/>
-        <div class="bggreygreen rounded h3 w4 white f2 shadow" style=${buttonStyle} id="${this._id + 'plus'}">+</div>
+        <div class="bggreygreen rounded h2 w3 white f1 shadow" style=${buttonStyle} id="${this._id + 'minus'}">−</div>
+        <input id="${this._id}" class="input shadow center f1" min=${min} max=${max} style="max-width:4rem; margin:0px; font-size:1rem; height:1.2rem;" type="number" value="${this._value}"/>
+        <div class="bggreygreen rounded h2 w3 white f1 shadow" style=${buttonStyle} id="${this._id + 'plus'}">+</div>
       </div>
     </div>`
   }

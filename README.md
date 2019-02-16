@@ -31,10 +31,23 @@ let slider = inputs.slider({
   min: -100,
   value: 50,
   label: 'number',
-  cb:(val)=>console.log(val)
+  debounce:false,
+  cb: (val)=> console.log(val)
 })
 document.body.innerHTML = slider.build()
 ```
+
+available types
+* .input()
+* .legend()
+* .plusminus()
+* .tabs()
+* .select()
+* .slider()
+* .vslider()
+* .duration()
+* .textarea()
+
 these are used with [somehow](https://github.com/spencermountain/somehow) to easily create navigable infographics.
 
 more to come

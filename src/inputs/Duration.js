@@ -1,37 +1,73 @@
 const Input = require('./Input')
 const uid = require('../uid')
+const mil = require('../milliseconds')
 
 const defaults = {
   min: 0,
-  max: 4,
-  step: 1,
-  size: 200,
-  durations: ['1 day', '1 week', '1 month', '3 months', '1 year']
+  max: mil.year,
+  value: mil.month * 6,
+  step: mil.day,
+  debounce: false
 }
 
-class Duration extends Input {
+
+class Slider extends Input {
   constructor(obj = {}) {
     super(obj)
     this.attrs = Object.assign({}, defaults, this.attrs)
-    this._id = obj.id || uid('slider')
+    this._id = obj.id || uid('duration')
     this.display_id = this._id + 'display'
     if (obj.show_number === undefined) {
       obj.show_number = true
     }
     this.show_number = obj.show_number
-    this.durations = obj.durations || defaults.durations
+    if (typeof obj.max === 'object') {
+      this.attrs.max = this.parseObj(obj.max)
+    }
+    if (typeof obj.min === 'object') {
+      this.attrs.min = this.parseObj(obj.min)
+    }
+    this._value = this.attrs.value
+    if (typeof obj.value === 'object') {
+      this._value = this.parseObj(obj.value)
+    } else {
+      this._value = obj.value
+    }
   }
-  getDuration() {
-    let h = this.h
-    let str = this.durations[this._value] || ''
-    let arr = str.split(' ').map((s) => h`<div class="">${s}</div>`)
-    return h`<div class="">${arr}</div>`
+  parseObj(obj) {
+    let val = 0
+    Object.keys(obj).forEach((k) => {
+      val += (mil[k] || 0) * obj[k]
+    })
+    val *= 1.01
+    return val
+  }
+  round(val) {
+    if (this.attrs.decimal) {
+      return parseInt(val * 10, 10) / 10
+    }
+    return parseInt(val, 10)
+  }
+  displayText(val = 0) {
+    if (val >= mil.year * 0.99) {
+      return this.round(val / mil.year) + ' years'
+    }
+    if (val >= mil.month * 0.99) {
+      return this.round(val / mil.month) + ' months'
+    }
+    if (val >= mil.week * 0.99) {
+      return this.round(val / mil.week) + ' weeks'
+    }
+    if (val >= mil.day * 0.99) {
+      return this.round(val / mil.day) + ' days'
+    }
+    return this.round(val / mil.hour) + ' hours'
   }
   redraw() {
-    let el = document.getElementById(this.display_id)
-    el.innerHTML = this.getDuration()
-    let percent = (Number(this._value) / (this.attrs.max)) * 100 //w8
-    el.style.left = `${percent}%`
+    if (this.show_number) {
+      let el = document.getElementById(this.display_id)
+      el.innerHTML = this.displayText(this._value)
+    }
   }
   build() {
     let h = this.h
@@ -40,15 +76,11 @@ class Duration extends Input {
     if (this._label) {
       label = this._label + ':'
     }
-    let percent = (this._value / this.durations.length) * 100
-    let style = `top:10px; left:${percent}%; transform:translateX(-10px)`
     return h`<div class="col w100p">
       <div class="grey">${label}</div>
-      <input class="w8" type="range" id="${this._id}" value=${this._value} ...${this.attrs}/>
-      <div class="w8 relative center f09">
-        <div class="absolute grey" style="${style}" id="${this.display_id}">${this.getDuration()}</div>
-      </div>
+      <input class="w100p" type="range" id="${this._id}" value=${this._value} ...${this.attrs}/>
+      <div id="${this.display_id}" class="grey">${this.displayText(this._value)}</div>
     </div>`
   }
 }
-module.exports = Duration
+module.exports = Slider

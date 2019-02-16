@@ -5,9 +5,19 @@ let input = inputs.input({
   el: '#input',
   width: 600,
   value: 'tofu',
-  label: 'input'
+  label: 'input',
+  cb: (val) => console.log(val)
 })
 document.querySelector('#input').innerHTML = input.build()
+
+let select = inputs.select({
+  el: '#select',
+  value: 'cat',
+  label: 'choice',
+  options: ['alligator', 'dog', 'porcuipine', 'cat', 'sloth'],
+  cb: (val) => console.log(val)
+})
+document.querySelector('#select').innerHTML = select.build()
 
 let slider = inputs.slider({
   el: '#slider',
@@ -15,6 +25,8 @@ let slider = inputs.slider({
   max: 200,
   min: -100,
   value: 50,
+  debounce: true,
+  cb: (val) => console.log('slider: ' + val),
   label: 'number'
 })
 document.querySelector('#slider').innerHTML = slider.build()
@@ -38,10 +50,30 @@ let tabs = inputs.tabs({
 })
 document.querySelector('#tabs').innerHTML = tabs.build()
 
+let legend = inputs.legend({
+  el: '#legend',
+  label: 'legend',
+  labels: {
+    'green': 'green',
+    'brown': 'brown',
+    'red': 'red',
+    'pink': 'pink'
+  }
+})
+document.querySelector('#legend').innerHTML = legend.build()
+
 let duration = inputs.duration({
   el: '#duration',
-  value: 2,
-  label: 'duration'
+  value: {
+    year: 4
+  },
+  min: {
+    month: 3
+  },
+  label: 'duration',
+  max: {
+    'year': 12
+  }
 })
 document.querySelector('#duration').innerHTML = duration.build()
 

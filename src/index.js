@@ -5,6 +5,8 @@ const PlusMinus = require('./inputs/PlusMinus')
 const Textarea = require('./inputs/Textarea')
 const Duration = require('./inputs/Duration')
 const Tabs = require('./inputs/Tabs')
+const Legend = require('./inputs/Legend')
+const Select = require('./inputs/Select')
 
 const inputs = {
   input: (obj) => new Input(obj),
@@ -13,6 +15,8 @@ const inputs = {
   plusMinus: (obj) => new PlusMinus(obj),
   textarea: (obj) => new Textarea(obj),
   duration: (obj) => new Duration(obj),
-  tabs: (obj) => new Tabs(obj)
+  legend: (obj) => new Legend(obj),
+  tabs: (obj) => new Tabs(obj),
+  select: (obj) => new Select(obj)
 }
 module.exports = inputs

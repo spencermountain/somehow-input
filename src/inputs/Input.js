@@ -19,6 +19,7 @@ class Input {
       this.redraw()
       cb(val)
     }
+    this.timeout = null
     this.el = null
     this.h = htm.bind(vhtml);
 
@@ -27,14 +28,25 @@ class Input {
   bind(fn) {
     this.h = htm.bind(fn);
   }
+  debounce(cb, duration) {
+    //support immediate-mode
+    if (this.attrs.debounce === false) {
+      cb()
+      return
+    }
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(cb, duration)
+  }
   setCallback() {
     setTimeout(() => {
       let el = document.getElementById(this._id)
-      if (el) {
-        el.addEventListener('input', (e) => {
+      el.addEventListener('input', (e) => {
+        this.debounce(() => {
           this.callback(e.target.value)
-        })
-      }
+        }, 300)
+      })
     }, 50)
   }
   redraw() {}

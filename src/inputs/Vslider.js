@@ -6,6 +6,7 @@ const defaults = {
   max: 100,
   step: 1,
   size: 200,
+  debounce: false
 }
 
 class Vslider extends Input {

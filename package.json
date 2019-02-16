@@ -1,7 +1,7 @@
 {
   "name": "somehow-input",
   "description": "make infographics without thinking",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "builds/somehow-input.js",
   "unpkg": "builds/somehow-input.min.js",
   "author": "Spencer Kelly (spencermountain)",
