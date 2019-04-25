@@ -56,6 +56,7 @@ let slider = inputs.slider({
   width: 600,
   max: 200,
   min: -100,
+  param: 'slider',
   value: 50,
   debounce: true,
   cb: val => console.log('slider: ' + val),

@@ -1,7 +1,7 @@
 const htm = require('htm')
 const vhtml = require('vhtml')
 const uid = require('../uid')
-const setUrlParam = require('../url-param')
+const urlParam = require('../url-param')
 const defaults = {}
 
 class Input {
@@ -13,6 +13,10 @@ class Input {
     this.attrs = Object.assign({}, defaults, obj)
     this._id = obj.id || uid('input')
     this._value = obj.value || ''
+    //override value from url param
+    if (this.attrs.param) {
+      this._value = urlParam.get(this.attrs.param) || this._value
+    }
     this._label = obj.label || ''
     let cb = obj.cb || function() {}
     this.callback = val => {
@@ -40,14 +44,19 @@ class Input {
     }
     this.timeout = setTimeout(cb, duration)
   }
+  setUrl(val) {
+    if (this.attrs.param) {
+      let url = urlParam.set(window.location.href, this.attrs.param, val)
+      window.history.replaceState('', '', url)
+    }
+  }
   setCallback() {
     setTimeout(() => {
       let el = document.getElementById(this._id)
       el.addEventListener('input', e => {
         this.debounce(() => {
           let val = e.target.value
-          let url = setUrlParam(window.location.href, this._id, val)
-          window.history.replaceState('', '', url)
+          this.setUrl(val)
           this.callback(val)
         }, 300)
       })

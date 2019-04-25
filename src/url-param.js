@@ -1,4 +1,4 @@
-function setGetParam(url, param, paramVal) {
+function setParam(url, param, paramVal) {
   var newAdditionalURL = ''
   var tempArray = url.split('?')
   var baseURL = tempArray[0]
@@ -16,4 +16,12 @@ function setGetParam(url, param, paramVal) {
   var rows_txt = temp + '' + param + '=' + paramVal
   return baseURL + '?' + newAdditionalURL + rows_txt
 }
-module.exports = setGetParam
+
+const getParam = function(param) {
+  var url = new URL(window.location.href)
+  return url.searchParams.get(param)
+}
+module.exports = {
+  get: getParam,
+  set: setParam
+}
