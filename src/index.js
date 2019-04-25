@@ -7,16 +7,18 @@ const Duration = require('./inputs/Duration')
 const Tabs = require('./inputs/Tabs')
 const Legend = require('./inputs/Legend')
 const Select = require('./inputs/Select')
+const Button = require('./inputs/Button')
 
 const inputs = {
-  input: (obj) => new Input(obj),
-  slider: (obj) => new Slider(obj),
-  vslider: (obj) => new Vslider(obj),
-  plusMinus: (obj) => new PlusMinus(obj),
-  textarea: (obj) => new Textarea(obj),
-  duration: (obj) => new Duration(obj),
-  legend: (obj) => new Legend(obj),
-  tabs: (obj) => new Tabs(obj),
-  select: (obj) => new Select(obj)
+  input: obj => new Input(obj),
+  slider: obj => new Slider(obj),
+  vslider: obj => new Vslider(obj),
+  plusMinus: obj => new PlusMinus(obj),
+  textarea: obj => new Textarea(obj),
+  duration: obj => new Duration(obj),
+  legend: obj => new Legend(obj),
+  tabs: obj => new Tabs(obj),
+  select: obj => new Select(obj),
+  button: obj => new Button(obj)
 }
 module.exports = inputs

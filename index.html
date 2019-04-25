@@ -1,67 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title></title>
+    <link href="./assets/spencer.min.css" rel="stylesheet" />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <title></title>
-  <link href="./assets/spencer.min.css" rel="stylesheet">
-</head>
-
-<body class="body">
-  <h2 class="grey goleft m2">
-    <a href="https://github.com/spencermountain/somehow-input">somehow-input</a>:
-    <div class="f1 ml3">
-      somehow, create interactive html elements
-      <div class="light">without any frameworks, or thinking.</div>
-    </div>
-  </h2>
-  <div class="stage outline w10">
-    <div class="w100p center mv4 col">
-      <div class="grey f2 ulblue b " style="display:inline;">.textarea() :</div>
-      <div class="row">
-        <div class="mt2" id="textarea"></div>
-        <div class="mt2" id="textarea2"></div>
+  <body class="body">
+    <h2 class="grey goleft m2">
+      <a href="https://github.com/spencermountain/somehow-input"
+        >somehow-input</a
+      >:
+      <div class="f1 ml3">
+        somehow, create interactive html elements
+        <div class="light">without any frameworks, or thinking.</div>
+      </div>
+    </h2>
+    <div class="stage outline w10">
+      <div class="w100p center mv4 col">
+        <div class="grey f2 ulblue b " style="display:inline;">.button() :</div>
+        <div class="row"><div class="mt2" id="button"></div></div>
+      </div>
+      <div class="w100p center mv4 col">
+        <div class="grey f2 ulblue b " style="display:inline;">
+          .textarea() :
+        </div>
+        <div class="row">
+          <div class="mt2" id="textarea"></div>
+          <div class="mt2" id="textarea2"></div>
+        </div>
+      </div>
+      <div class="w100p center mv4">
+        <div class="grey f2 ulblue b " style="display:inline;">.legend() :</div>
+        <div class="pl8 mt2 w30" id="legend"></div>
+      </div>
+      <div class="w100p center mv4">
+        <div class="grey f2 ulblue b " style="display:inline;">
+          .duration() :
+        </div>
+        <div class="pl8 mt2 w30" id="duration"></div>
+      </div>
+      <div class="w100p center mv4">
+        <div class="grey f2 ulblue b " style="display:inline;">.tabs() :</div>
+        <div class="pl8 mt2 w30" id="tabs"></div>
+      </div>
+      <div class="w100p center mv4">
+        <div class="grey f2 ulblue b " style="display:inline;">.select() :</div>
+        <div class="pl8 mt2 w30" id="select"></div>
+      </div>
+      <div class="w100p center mv4">
+        <div class="grey f2 ulblue b " style="display:inline;">.input() :</div>
+        <div class="pl8 mt2 w30" id="input"></div>
+      </div>
+      <div class="w100p center mv4">
+        <div class="grey f2 ulblue b " style="display:inline;">.slider() :</div>
+        <div class="pl8 mt2 w30" id="slider"></div>
+      </div>
+      <div class="w100p center mv4">
+        <div class="grey f2 ulblue b " style="display:inline;">
+          .vslider() :
+        </div>
+        <div class="pl8 mt2 w30" id="vslider"></div>
+      </div>
+      <div class="w100p center mv4">
+        <div class="grey f2 ulblue b " style="display:inline;">
+          .plusMinus() :
+        </div>
+        <div class="pl8 mt2 w30" id="plusminus"></div>
       </div>
     </div>
-    <div class="w100p center mv4">
-      <div class="grey f2 ulblue b " style="display:inline;">.legend() :</div>
-      <div class="pl8 mt2 w30" id="legend"></div>
+    <div class="footer right f1">
+      <a
+        class="light mr1"
+        href="https://github.com/spencermountain/somehow-input"
+        >source</a
+      >
+      <a href="http://twitter.com/spencermountain">@spencermountain</a>
     </div>
-    <div class="w100p center mv4">
-      <div class="grey f2 ulblue b " style="display:inline;">.duration() :</div>
-      <div class="pl8 mt2 w30" id="duration"></div>
-    </div>
-    <div class="w100p center mv4">
-      <div class="grey f2 ulblue b " style="display:inline;">.tabs() :</div>
-      <div class="pl8 mt2 w30" id="tabs"></div>
-    </div>
-    <div class="w100p center mv4">
-      <div class="grey f2 ulblue b " style="display:inline;">.select() :</div>
-      <div class="pl8 mt2 w30" id="select"></div>
-    </div>
-    <div class="w100p center mv4">
-      <div class="grey f2 ulblue b " style="display:inline;">.input() :</div>
-      <div class="pl8 mt2 w30" id="input"></div>
-    </div>
-    <div class="w100p center mv4">
-      <div class="grey f2 ulblue b " style="display:inline;">.slider() :</div>
-      <div class="pl8 mt2 w30" id="slider"></div>
-    </div>
-    <div class="w100p center mv4">
-      <div class="grey f2 ulblue b " style="display:inline;">.vslider() :</div>
-      <div class="pl8 mt2 w30" id="vslider"></div>
-    </div>
-    <div class="w100p center mv4">
-      <div class="grey f2 ulblue b " style="display:inline;">.plusMinus() :</div>
-      <div class="pl8 mt2 w30" id="plusminus"></div>
-    </div>
-  </div>
-  <div class="footer right f1">
-    <a class="light mr1" href="https://github.com/spencermountain/somehow-input">source</a>
-    <a href="http://twitter.com/spencermountain">@spencermountain</a>
-  </div>
-  <script src="./assets/bundle.js"></script>
-</body>
-
+    <script src="./assets/bundle.js"></script>
+  </body>
 </html>

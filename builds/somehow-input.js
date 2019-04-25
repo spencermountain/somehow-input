@@ -98,6 +98,8 @@ var Legend = _dereq_('./inputs/Legend');
 
 var Select = _dereq_('./inputs/Select');
 
+var Button = _dereq_('./inputs/Button');
+
 var inputs = {
   input: function input(obj) {
     return new Input(obj);
@@ -125,11 +127,109 @@ var inputs = {
   },
   select: function select(obj) {
     return new Select(obj);
+  },
+  button: function button(obj) {
+    return new Button(obj);
   }
 };
 module.exports = inputs;
 
-},{"./inputs/Duration":5,"./inputs/Input":6,"./inputs/Legend":7,"./inputs/PlusMinus":8,"./inputs/Select":9,"./inputs/Slider":10,"./inputs/Tabs":11,"./inputs/Textarea":12,"./inputs/Vslider":13}],5:[function(_dereq_,module,exports){
+},{"./inputs/Button":5,"./inputs/Duration":6,"./inputs/Input":7,"./inputs/Legend":8,"./inputs/PlusMinus":9,"./inputs/Select":10,"./inputs/Slider":11,"./inputs/Tabs":12,"./inputs/Textarea":13,"./inputs/Vslider":14}],5:[function(_dereq_,module,exports){
+"use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["<div class=\"col maxw7\">\n      <div class=\"grey center ulblue\">", "</div>\n      <div class=\"grey pointer ullighter b3 white\" style=", " id=\"", "\">\n    ", "\n    </div>\n      </div>"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Input = _dereq_('./Input'); // const colors = require('spencer-color').colors
+
+
+var uid = _dereq_('../uid');
+
+var defaults = {
+  color: '#2D85A8'
+};
+
+var Button =
+/*#__PURE__*/
+function (_Input) {
+  _inherits(Button, _Input);
+
+  function Button() {
+    var _this;
+
+    var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, Button);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Button).call(this, obj));
+    _this.attrs = Object.assign({}, defaults, _this.attrs);
+    _this._id = obj.id || uid('_btn');
+    _this.labels = obj.labels || {};
+    _this.color = obj.color || defaults.color;
+    return _this;
+  }
+
+  _createClass(Button, [{
+    key: "setCallback",
+    value: function setCallback() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        var el = document.getElementById(_this2._id);
+        el.addEventListener('click', function (e) {
+          _this2.callback(e.target.value);
+        });
+      }, 50);
+    }
+  }, {
+    key: "build",
+    value: function build() {
+      var h = this.h;
+      this.setCallback();
+      var label = '';
+
+      if (this._label) {
+        label = this._label + ':';
+      }
+
+      var style = 'padding:0.5rem; margin-left:0.5rem; user-select: none; background-color: ' + this.color;
+      return h(_templateObject(), label, style, this._id, this.attrs.value); // <button ...${this.attrs} class="f2">${this.attrs.value}</button>
+    }
+  }]);
+
+  return Button;
+}(Input);
+
+module.exports = Button;
+
+},{"../uid":16,"./Input":7}],6:[function(_dereq_,module,exports){
 "use strict";
 
 function _templateObject() {
@@ -288,7 +388,7 @@ function (_Input) {
 
 module.exports = Slider;
 
-},{"../milliseconds":14,"../uid":15,"./Input":6}],6:[function(_dereq_,module,exports){
+},{"../milliseconds":15,"../uid":16,"./Input":7}],7:[function(_dereq_,module,exports){
 "use strict";
 
 function _templateObject() {
@@ -415,7 +515,7 @@ function () {
 
 module.exports = Input;
 
-},{"../uid":15,"htm":1,"vhtml":3}],7:[function(_dereq_,module,exports){
+},{"../uid":16,"htm":1,"vhtml":3}],8:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -512,7 +612,7 @@ function (_Input) {
 
 module.exports = Legend;
 
-},{"../uid":15,"./Input":6,"spencer-color":2}],8:[function(_dereq_,module,exports){
+},{"../uid":16,"./Input":7,"spencer-color":2}],9:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -626,7 +726,7 @@ function (_Input) {
 
 module.exports = PlusMinus;
 
-},{"../uid":15,"./Input":6}],9:[function(_dereq_,module,exports){
+},{"../uid":16,"./Input":7}],10:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -743,7 +843,7 @@ function (_Input) {
 
 module.exports = Select;
 
-},{"../uid":15,"./Input":6}],10:[function(_dereq_,module,exports){
+},{"../uid":16,"./Input":7}],11:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -841,7 +941,7 @@ function (_Input) {
 
 module.exports = Slider;
 
-},{"../uid":15,"./Input":6}],11:[function(_dereq_,module,exports){
+},{"../uid":16,"./Input":7}],12:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -987,7 +1087,7 @@ function (_Input) {
 
 module.exports = Tabs;
 
-},{"../uid":15,"./Input":6}],12:[function(_dereq_,module,exports){
+},{"../uid":16,"./Input":7}],13:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1099,7 +1199,7 @@ function (_Input) {
         label = this._label + ':';
       }
 
-      var style = 'padding:0.5rem; margin-left:0.5rem; background-color: ' + this.color;
+      var style = 'padding:0.5rem; user-select: none; margin-left:0.5rem; background-color: ' + this.color;
       return h(_templateObject(), style, this._id + '_btn', label, this._id, this.makeStyle(), this.attrs, this._value);
     }
   }]);
@@ -1109,7 +1209,7 @@ function (_Input) {
 
 module.exports = Textarea;
 
-},{"../uid":15,"./Input":6}],13:[function(_dereq_,module,exports){
+},{"../uid":16,"./Input":7}],14:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1225,7 +1325,7 @@ function (_Input) {
 
 module.exports = Vslider;
 
-},{"../uid":15,"./Input":6}],14:[function(_dereq_,module,exports){
+},{"../uid":16,"./Input":7}],15:[function(_dereq_,module,exports){
 "use strict";
 
 var o = {
@@ -1249,7 +1349,7 @@ Object.keys(o).forEach(function (k) {
 });
 module.exports = o;
 
-},{}],15:[function(_dereq_,module,exports){
+},{}],16:[function(_dereq_,module,exports){
 "use strict";
 
 //may need to change when the term really-transforms? not sure.

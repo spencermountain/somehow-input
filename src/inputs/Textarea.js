@@ -39,10 +39,15 @@ class Textarea extends Input {
     }, 60)
   }
   makeStyle() {
-    let style = 'transition: all 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940); font-size:10px; font-family: monospace;'
+    let style =
+      'transition: all 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940); font-size:10px; font-family: monospace;'
     style += ' visibility: hidden; height:0px; padding:0px; resize: none;'
-    style += ` border:6px solid ${this.color}; color:${this.color}; border-radius:7px; `
-    style += `border-left:1px solid ${this.color}; border-right:1px solid ${this.color};`
+    style += ` border:6px solid ${this.color}; color:${
+      this.color
+    }; border-radius:7px; `
+    style += `border-left:1px solid ${this.color}; border-right:1px solid ${
+      this.color
+    };`
     return style
   }
   build() {
@@ -53,10 +58,16 @@ class Textarea extends Input {
     if (this._label) {
       label = this._label + ':'
     }
-    let style = 'padding:0.5rem; margin-left:0.5rem; background-color: ' + this.color
+    let style =
+      'padding:0.5rem; user-select: none; margin-left:0.5rem; background-color: ' +
+      this.color
     return h`<div class="col w9">
-      <div class="grey pointer ullighter b3 white" style=${style} id="${this._id + '_btn'}">${label}<span class="white f2" style="margin:0.5rem;">+</span></div>
-      <textarea class="w7" id="${this._id}" style=${this.makeStyle()} ...${this.attrs}>${this._value}</textarea>
+      <div class="grey pointer ullighter b3 white" style=${style} id="${this
+      ._id +
+      '_btn'}">${label}<span class="white f2" style="margin:0.5rem;">+</span></div>
+      <textarea class="w7" id="${this._id}" style=${this.makeStyle()} ...${
+      this.attrs
+    }>${this._value}</textarea>
     </div>`
   }
 }

@@ -1,12 +1,21 @@
 const inputs = require('./src')
 // const somehow = require('./builds/somehow')
 
+let button = inputs.button({
+  el: '#button',
+  width: 600,
+  value: 'tofu',
+  label: 'button',
+  cb: () => console.log('btn')
+})
+document.querySelector('#button').innerHTML = button.build()
+
 let input = inputs.input({
   el: '#input',
   width: 600,
   value: 'tofu',
   label: 'input',
-  cb: (val) => console.log(val)
+  cb: val => console.log(val)
 })
 document.querySelector('#input').innerHTML = input.build()
 
@@ -15,7 +24,7 @@ let select = inputs.select({
   value: 'cat',
   label: 'choice',
   options: ['alligator', 'dog', 'porcuipine', 'cat', 'sloth'],
-  cb: (val) => console.log(val)
+  cb: val => console.log(val)
 })
 document.querySelector('#select').innerHTML = select.build()
 
@@ -26,7 +35,7 @@ let slider = inputs.slider({
   min: -100,
   value: 50,
   debounce: true,
-  cb: (val) => console.log('slider: ' + val),
+  cb: val => console.log('slider: ' + val),
   label: 'number'
 })
 document.querySelector('#slider').innerHTML = slider.build()
@@ -54,10 +63,10 @@ let legend = inputs.legend({
   el: '#legend',
   label: 'legend',
   labels: {
-    'green': 'green',
-    'brown': 'brown',
-    'red': 'red',
-    'pink': 'pink'
+    green: 'green',
+    brown: 'brown',
+    red: 'red',
+    pink: 'pink'
   }
 })
 document.querySelector('#legend').innerHTML = legend.build()
@@ -72,7 +81,7 @@ let duration = inputs.duration({
   },
   label: 'duration',
   max: {
-    'year': 12
+    year: 12
   }
 })
 document.querySelector('#duration').innerHTML = duration.build()
@@ -90,7 +99,7 @@ let textarea = inputs.textarea({
   width: 600,
   value: 'hello\nthere',
   label: 'textarea',
-  cb: (val) => console.log(val)
+  cb: val => console.log(val)
 })
 document.querySelector('#textarea').innerHTML = textarea.build()
 let textarea2 = inputs.textarea({
@@ -99,6 +108,6 @@ let textarea2 = inputs.textarea({
   value: 'hello\nthere',
   label: 'text2',
   color: '#AB5850',
-  cb: (val) => console.log(val)
+  cb: val => console.log(val)
 })
 document.querySelector('#textarea2').innerHTML = textarea2.build()
