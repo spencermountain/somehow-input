@@ -1,6 +1,29 @@
 const inputs = require('./src')
 // const somehow = require('./builds/somehow')
 
+let colorPicker = inputs.colorPicker({
+  el: '#colorPicker',
+  width: 600,
+  options: [
+    '#ffffff',
+    '#d7d5d2',
+    '#d8b3e6',
+    'rosybrown',
+    'burlywood',
+    '#9c896c',
+    'slategrey',
+    '#cc7066',
+    'seagreen',
+    'teal',
+    'steelblue',
+    '#333333'
+  ],
+  value: 'rosybrown',
+  label: 'colorpicker',
+  cb: val => console.log(val)
+})
+document.querySelector('#colorPicker').innerHTML = colorPicker.build()
+
 let button = inputs.button({
   el: '#button',
   width: 600,

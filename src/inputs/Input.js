@@ -1,6 +1,7 @@
 const htm = require('htm')
-const vhtml = require('vhtml');
+const vhtml = require('vhtml')
 const uid = require('../uid')
+const setUrlParam = require('../url-param')
 const defaults = {}
 
 class Input {
@@ -14,19 +15,19 @@ class Input {
     this._value = obj.value || ''
     this._label = obj.label || ''
     let cb = obj.cb || function() {}
-    this.callback = (val) => {
+    this.callback = val => {
       this._value = val
       this.redraw()
       cb(val)
     }
     this.timeout = null
     this.el = null
-    this.h = htm.bind(vhtml);
+    this.h = htm.bind(vhtml)
 
     this.el = obj.el || null
   }
   bind(fn) {
-    this.h = htm.bind(fn);
+    this.h = htm.bind(fn)
   }
   debounce(cb, duration) {
     //support immediate-mode
@@ -35,16 +36,19 @@ class Input {
       return
     }
     if (this.timeout) {
-      clearTimeout(this.timeout);
+      clearTimeout(this.timeout)
     }
     this.timeout = setTimeout(cb, duration)
   }
   setCallback() {
     setTimeout(() => {
       let el = document.getElementById(this._id)
-      el.addEventListener('input', (e) => {
+      el.addEventListener('input', e => {
         this.debounce(() => {
-          this.callback(e.target.value)
+          let val = e.target.value
+          let url = setUrlParam(window.location.href, this._id, val)
+          window.history.replaceState('', '', url)
+          this.callback(val)
         }, 300)
       })
     }, 50)
@@ -62,7 +66,11 @@ class Input {
     }
     return this.h`<div class="col">
       <div class="grey">${label}</div>
-      <input id="${this._id}" class="input" style="max-width:8rem; padding-right:0px;" type="text" style=${style} value="${this._value}"/>
+      <input id="${
+        this._id
+      }" class="input" style="max-width:8rem; padding-right:0px;" type="text" style=${style} value="${
+      this._value
+    }"/>
     </div>`
   }
 }

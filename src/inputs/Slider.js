@@ -35,7 +35,9 @@ class Slider extends Input {
     }
     return h`<div class="col w100p">
       <div class="grey">${label}</div>
-      <input class="w100p" type="range" id="${this._id}" value=${this._value} ...${this.attrs}/>
+      <input style="height: 20px;" class="w100p" type="range" id="${
+        this._id
+      }" value=${this._value} />
       <div id="${this.display_id}" class="grey">${this._value}</div>
     </div>`
   }

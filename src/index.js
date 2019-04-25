@@ -8,6 +8,7 @@ const Tabs = require('./inputs/Tabs')
 const Legend = require('./inputs/Legend')
 const Select = require('./inputs/Select')
 const Button = require('./inputs/Button')
+const ColorPicker = require('./inputs/ColorPicker')
 
 const inputs = {
   input: obj => new Input(obj),
@@ -19,6 +20,7 @@ const inputs = {
   legend: obj => new Legend(obj),
   tabs: obj => new Tabs(obj),
   select: obj => new Select(obj),
-  button: obj => new Button(obj)
+  button: obj => new Button(obj),
+  colorPicker: obj => new ColorPicker(obj)
 }
 module.exports = inputs
