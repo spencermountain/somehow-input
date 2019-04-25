@@ -1,4 +1,4 @@
-/* somehow v0.0.7
+/* somehow v0.0.8
    github.com/spencermountain/somehow-input
    MIT
 */
