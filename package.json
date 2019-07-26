@@ -1,11 +1,15 @@
 {
   "name": "somehow-input",
   "description": "make infographics without thinking",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "builds/somehow-input.js",
   "unpkg": "builds/somehow-input.min.js",
   "author": "Spencer Kelly (spencermountain)",
-  "homepage": "https://github.com/spencermountain/frown#readme",
+  "homepage": "https://github.com/spencermountain/somehow-input/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/spencermountain/somehow-input/.git"
+  },
   "scripts": {
     "start": "budo scratch.js:assets/bundle.js --live",
     "watch": "npm run start",
@@ -16,18 +20,18 @@
     "builds"
   ],
   "dependencies": {
-    "htm": "2.0.0",
-    "spacetime": "5.2.2",
+    "htm": "2.1.1",
     "spencer-color": "0.1.0",
     "vhtml": "2.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.3.3",
-    "@babel/preset-env": "7.3.1",
+    "@babel/core": "7.5.5",
+    "@babel/preset-env": "7.5.5",
     "babelify": "10.0.0",
-    "budo": "11.6.0",
+    "budo": "11.6.2",
     "derequire": "2.0.6",
     "shelljs": "0.8.3",
-    "terser": "3.16.1"
-  }
+    "terser": "4.1.2"
+  },
+  "license": "MIT"
 }

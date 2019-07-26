@@ -1,10 +1,10 @@
-/* somehow v0.0.8
+/* somehow v0.0.9
    github.com/spencermountain/somehow-input
    MIT
 */
 
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.somehowInput = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
-!function(){var n={},e=JSON.stringify;function t(e){for(var t=".",c=0;c<e.length;c++)t+=e[c].length+","+e[c];return(n[t]||(n[t]=i(e)))(this,arguments)}var i=function(n){for(var t,i,c,r,s,o=0,u="return ",a="",f="",h=0,l="",g="",d="",v=0,m=function(){c?9===o?(h++&&(u+=","),u+="h("+(f||e(a)),o=0):13===o||0===o&&"..."===a?(0===o?(d||(d=")",l=l?"Object.assign("+l:"Object.assign({}"),l+=g+","+f,g=""):r&&(l+=l?","+(g?"":"{"):"{",g="}",l+=e(r)+":",l+=f||(s||a)&&e(a)||"true",r=""),s=!1):0===o&&(o=13,r=a,a=f="",m(),o=0):(f||(a=a.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))&&(h++&&(u+=","),u+=f||e(a)),a=f=""},p=0;p<n.length;p++){p>0&&(c||m(),f="$["+p+"]",m());for(var O=0;O<n[p].length;O++){if(i=n[p].charCodeAt(O),c){if(39===i||34===i){if(v===i){v=0;continue}if(0===v){v=i;continue}}if(0===v)switch(i){case 62:m(),47!==o&&(u+=l?","+l+g+d:",null"),t&&(u+=")"),c=0,l="",o=1;continue;case 61:o=13,s=!0,r=a,a="";continue;case 47:t||(t=!0,9!==o||a.trim()||(a=f="",o=47));continue;case 9:case 10:case 13:case 32:m(),o=0;continue}}else if(60===i){m(),c=1,d=g=l="",t=s=!1,o=9;continue}a+=n[p].charAt(O)}}return m(),Function("h","$",u)};"undefined"!=typeof module?module.exports=t:self.htm=t}();
+!function(){var n=function(t,e,r,u){for(var o=1;o<e.length;o++){var f=e[o++],s="number"==typeof f?r[f]:f;1===e[o]?u[0]=s:2===e[o]?(u[1]=u[1]||{})[e[++o]]=s:3===e[o]?u[1]=Object.assign(u[1]||{},s):u.push(e[o]?t.apply(null,n(t,s,r,["",null])):s)}return u},t=function(n){for(var t,e,r=1,u="",o="",f=[0],s=function(n){1===r&&(n||(u=u.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?f.push(n||u,0):3===r&&(n||u)?(f.push(n||u,1),r=2):2===r&&"..."===u&&n?f.push(n,3):2===r&&u&&!n?f.push(!0,2,u):4===r&&e&&(f.push(n||u,2,e),e=""),u=""},p=0;p<n.length;p++){p&&(1===r&&s(),s(p));for(var h=0;h<n[p].length;h++)t=n[p][h],1===r?"<"===t?(s(),f=[f],r=3):u+=t:o?t===o?o="":u+=t:'"'===t||"'"===t?o=t:">"===t?(s(),r=1):r&&("="===t?(r=4,e=u,u=""):"/"===t?(s(),3===r&&(f=f[0]),r=f,(f=f[0]).push(r,4),r=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(s(),r=2):u+=t)}return s(),f},e="function"==typeof Map,r=e?new Map:{},u=e?function(n){var e=r.get(n);return e||r.set(n,e=t(n)),e}:function(n){for(var e="",u=0;u<n.length;u++)e+=n[u].length+"-"+n[u];return r[e]||(r[e]=t(n))},o=function(t){var e=n(this,u(t),arguments,[]);return e.length>1?e:e[0]};"undefined"!=typeof module?module.exports=o:self.htm=o}();
 
 },{}],2:[function(_dereq_,module,exports){
 (function (global){
@@ -100,6 +100,8 @@ var Select = _dereq_('./inputs/Select');
 
 var Button = _dereq_('./inputs/Button');
 
+var ColorPicker = _dereq_('./inputs/ColorPicker');
+
 var inputs = {
   input: function input(obj) {
     return new Input(obj);
@@ -130,11 +132,14 @@ var inputs = {
   },
   button: function button(obj) {
     return new Button(obj);
+  },
+  colorPicker: function colorPicker(obj) {
+    return new ColorPicker(obj);
   }
 };
 module.exports = inputs;
 
-},{"./inputs/Button":5,"./inputs/Duration":6,"./inputs/Input":7,"./inputs/Legend":8,"./inputs/PlusMinus":9,"./inputs/Select":10,"./inputs/Slider":11,"./inputs/Tabs":12,"./inputs/Textarea":13,"./inputs/Vslider":14}],5:[function(_dereq_,module,exports){
+},{"./inputs/Button":5,"./inputs/ColorPicker":6,"./inputs/Duration":7,"./inputs/Input":8,"./inputs/Legend":9,"./inputs/PlusMinus":10,"./inputs/Select":11,"./inputs/Slider":12,"./inputs/Tabs":13,"./inputs/Textarea":14,"./inputs/Vslider":15}],5:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -229,7 +234,144 @@ function (_Input) {
 
 module.exports = Button;
 
-},{"../uid":16,"./Input":7}],6:[function(_dereq_,module,exports){
+},{"../uid":17,"./Input":8}],6:[function(_dereq_,module,exports){
+"use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n    <div class=\"col\">\n      <div class=\"grey center ulblue\">", "</div>\n      <div class=\"row nowrap\" id=\"", "\">\n        ", "\n      </div>\n    </div>"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["<div class=\"h3 w3 shadow colorChoice\" style=\"", "\"></div>"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Input = _dereq_('./Input');
+
+var uid = _dereq_('../uid');
+
+var defaults = {};
+
+var ColorPicker =
+/*#__PURE__*/
+function (_Input) {
+  _inherits(ColorPicker, _Input);
+
+  function ColorPicker() {
+    var _this;
+
+    var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, ColorPicker);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ColorPicker).call(this, obj));
+    _this.attrs = Object.assign({}, defaults, _this.attrs);
+    _this._id = obj.id || uid('_color');
+    _this.labels = obj.labels || {};
+    _this.color = obj.color || defaults.color;
+    return _this;
+  }
+
+  _createClass(ColorPicker, [{
+    key: "setCallback",
+    value: function setCallback() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        var el = document.getElementById(_this2._id);
+        el.addEventListener('click', function (e) {
+          _this2.callback(e.target.value);
+        });
+      }, 50);
+    }
+  }, {
+    key: "chooseColor",
+    value: function chooseColor() {
+      var _this3 = this;
+
+      this.debounce(function () {
+        _this3.callback(e.target.value);
+      }, 300);
+    }
+  }, {
+    key: "moreCallbacks",
+    value: function moreCallbacks() {
+      var _this4 = this;
+
+      setTimeout(function () {
+        document.getElementById(_this4._id).onclick = function () {
+          console.log('hi');
+        };
+      });
+    }
+  }, {
+    key: "drawBox",
+    value: function drawBox(c) {
+      var style = "background-color:".concat(c, ";");
+
+      if (this.attrs.value === c) {
+        style += 'border:3px solid whitesmoke;';
+      }
+
+      return this.h(_templateObject(), style);
+    }
+  }, {
+    key: "build",
+    value: function build() {
+      var _this5 = this;
+
+      var h = this.h;
+      this.setCallback();
+      var label = '';
+
+      if (this._label) {
+        label = this._label + ':';
+      }
+
+      var options = this.attrs.options.map(function (c) {
+        return _this5.drawBox(c);
+      });
+      return h(_templateObject2(), label, this._id, options);
+    }
+  }]);
+
+  return ColorPicker;
+}(Input);
+
+module.exports = ColorPicker;
+
+},{"../uid":17,"./Input":8}],7:[function(_dereq_,module,exports){
 "use strict";
 
 function _templateObject() {
@@ -388,7 +530,7 @@ function (_Input) {
 
 module.exports = Slider;
 
-},{"../milliseconds":15,"../uid":16,"./Input":7}],7:[function(_dereq_,module,exports){
+},{"../milliseconds":16,"../uid":17,"./Input":8}],8:[function(_dereq_,module,exports){
 "use strict";
 
 function _templateObject() {
@@ -415,6 +557,8 @@ var vhtml = _dereq_('vhtml');
 
 var uid = _dereq_('../uid');
 
+var urlParam = _dereq_('../url-param');
+
 var defaults = {};
 
 var Input =
@@ -434,7 +578,12 @@ function () {
 
     this.attrs = Object.assign({}, defaults, obj);
     this._id = obj.id || uid('input');
-    this._value = obj.value || '';
+    this._value = obj.value || ''; //override value from url param
+
+    if (this.attrs.param) {
+      this._value = urlParam.get(this.attrs.param) || this._value;
+    }
+
     this._label = obj.label || '';
 
     var cb = obj.cb || function () {};
@@ -474,6 +623,14 @@ function () {
       this.timeout = setTimeout(cb, duration);
     }
   }, {
+    key: "setUrl",
+    value: function setUrl(val) {
+      if (this.attrs.param) {
+        var url = urlParam.set(window.location.href, this.attrs.param, val);
+        window.history.replaceState('', '', url);
+      }
+    }
+  }, {
     key: "setCallback",
     value: function setCallback() {
       var _this2 = this;
@@ -482,7 +639,11 @@ function () {
         var el = document.getElementById(_this2._id);
         el.addEventListener('input', function (e) {
           _this2.debounce(function () {
-            _this2.callback(e.target.value);
+            var val = e.target.value;
+
+            _this2.setUrl(val);
+
+            _this2.callback(val);
           }, 300);
         });
       }, 50);
@@ -515,7 +676,7 @@ function () {
 
 module.exports = Input;
 
-},{"../uid":16,"htm":1,"vhtml":3}],8:[function(_dereq_,module,exports){
+},{"../uid":17,"../url-param":18,"htm":1,"vhtml":3}],9:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -612,7 +773,7 @@ function (_Input) {
 
 module.exports = Legend;
 
-},{"../uid":16,"./Input":7,"spencer-color":2}],9:[function(_dereq_,module,exports){
+},{"../uid":17,"./Input":8,"spencer-color":2}],10:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -726,7 +887,7 @@ function (_Input) {
 
 module.exports = PlusMinus;
 
-},{"../uid":16,"./Input":7}],10:[function(_dereq_,module,exports){
+},{"../uid":17,"./Input":8}],11:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -843,13 +1004,13 @@ function (_Input) {
 
 module.exports = Select;
 
-},{"../uid":16,"./Input":7}],11:[function(_dereq_,module,exports){
+},{"../uid":17,"./Input":8}],12:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["<div class=\"col w100p\">\n      <div class=\"grey\">", "</div>\n      <input class=\"w100p\" type=\"range\" id=\"", "\" value=", " ...", "/>\n      <div id=\"", "\" class=\"grey\">", "</div>\n    </div>"]);
+  var data = _taggedTemplateLiteral(["<div class=\"col w100p\">\n      <div class=\"grey\">", "</div>\n      <input style=\"height: 20px;\" class=\"w100p\" type=\"range\" id=\"", "\" value=", " />\n      <div id=\"", "\" class=\"grey\">", "</div>\n    </div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -932,7 +1093,7 @@ function (_Input) {
         label = this._label + ':';
       }
 
-      return h(_templateObject(), label, this._id, this._value, this.attrs, this.display_id, this._value);
+      return h(_templateObject(), label, this._id, this._value, this.display_id, this._value);
     }
   }]);
 
@@ -941,7 +1102,7 @@ function (_Input) {
 
 module.exports = Slider;
 
-},{"../uid":16,"./Input":7}],12:[function(_dereq_,module,exports){
+},{"../uid":17,"./Input":8}],13:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1087,13 +1248,23 @@ function (_Input) {
 
 module.exports = Tabs;
 
-},{"../uid":16,"./Input":7}],13:[function(_dereq_,module,exports){
+},{"../uid":17,"./Input":8}],14:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["<div class=\"col w9\">\n      ", "\n      <textarea class=\"w7\" id=\"", "\" style=", " ...", ">", "</textarea>\n    </div>"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["<div class=\"col w9\">\n      <div class=\"grey pointer ullighter b3 white\" style=", " id=\"", "\">", "<span class=\"white f2\" style=\"margin:0.5rem;\">+</span></div>\n      <textarea class=\"w7\" id=\"", "\" style=", " ...", ">", "</textarea>\n    </div>"]);
+  var data = _taggedTemplateLiteral(["<div class=\"grey pointer ullighter b3 white\" style=", " id=\"", "\">\n      ", "\n      <span class=\"white f2\" style=\"margin:0.5rem;\">+</span>\n      </div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -1125,11 +1296,10 @@ var Input = _dereq_('./Input');
 var uid = _dereq_('../uid');
 
 var defaults = {
-  min: -100,
-  max: 100,
-  step: 1,
-  size: 200,
-  color: '#2D85A8'
+  show: true,
+  color: '#2D85A8',
+  height: '16rem',
+  width: '10rem'
 };
 
 var Textarea =
@@ -1148,7 +1318,9 @@ function (_Input) {
     _this.attrs = Object.assign({}, defaults, _this.attrs);
     _this._id = obj.id || uid('textarea');
     _this.display_id = _this._id + 'display';
-    _this.show = obj.show;
+    _this.show = _this.attrs.show;
+    _this.height = _this.attrs.height;
+    _this.width = _this.attrs.width;
     _this.color = obj.color || defaults.color;
     return _this;
   }
@@ -1164,7 +1336,7 @@ function (_Input) {
           var el = document.getElementById(_this2._id);
 
           if (_this2.show) {
-            el.style.height = '16rem';
+            el.style.height = _this2.height;
             el.style.padding = '1rem';
             el.style.visibility = 'visible';
             el.style.resize = 'both';
@@ -1182,8 +1354,8 @@ function (_Input) {
     key: "makeStyle",
     value: function makeStyle() {
       var style = 'transition: all 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940); font-size:10px; font-family: monospace;';
-      style += ' visibility: hidden; height:0px; padding:0px; resize: none;';
-      style += " border:6px solid ".concat(this.color, "; color:").concat(this.color, "; border-radius:7px; ");
+      style += " visibility: visible; height:".concat(this.height, "; padding:1rem; resize: both;");
+      style += " border:6px solid ".concat(this.color, "; color:").concat(this.color, "; width:").concat(this.width, "; border-radius:7px; ");
       style += "border-left:1px solid ".concat(this.color, "; border-right:1px solid ").concat(this.color, ";");
       return style;
     }
@@ -1200,7 +1372,13 @@ function (_Input) {
       }
 
       var style = 'padding:0.5rem; user-select: none; margin-left:0.5rem; background-color: ' + this.color;
-      return h(_templateObject(), style, this._id + '_btn', label, this._id, this.makeStyle(), this.attrs, this._value);
+      var button = h(_templateObject(), style, this._id + '_btn', label);
+
+      if (this.show) {
+        button = null;
+      }
+
+      return h(_templateObject2(), button, this._id, this.makeStyle(), this.attrs, this._value);
     }
   }]);
 
@@ -1209,7 +1387,7 @@ function (_Input) {
 
 module.exports = Textarea;
 
-},{"../uid":16,"./Input":7}],14:[function(_dereq_,module,exports){
+},{"../uid":17,"./Input":8}],15:[function(_dereq_,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1325,7 +1503,7 @@ function (_Input) {
 
 module.exports = Vslider;
 
-},{"../uid":16,"./Input":7}],15:[function(_dereq_,module,exports){
+},{"../uid":17,"./Input":8}],16:[function(_dereq_,module,exports){
 "use strict";
 
 var o = {
@@ -1349,7 +1527,7 @@ Object.keys(o).forEach(function (k) {
 });
 module.exports = o;
 
-},{}],16:[function(_dereq_,module,exports){
+},{}],17:[function(_dereq_,module,exports){
 "use strict";
 
 //may need to change when the term really-transforms? not sure.
@@ -1364,6 +1542,41 @@ var uid = function uid(str) {
 };
 
 module.exports = uid;
+
+},{}],18:[function(_dereq_,module,exports){
+"use strict";
+
+function setParam(url, param, paramVal) {
+  var newAdditionalURL = '';
+  var tempArray = url.split('?');
+  var baseURL = tempArray[0];
+  var additionalURL = tempArray[1];
+  var temp = '';
+
+  if (additionalURL) {
+    tempArray = additionalURL.split('&');
+
+    for (var i = 0; i < tempArray.length; i++) {
+      if (tempArray[i].split('=')[0] !== param) {
+        newAdditionalURL += temp + tempArray[i];
+        temp = '&';
+      }
+    }
+  }
+
+  var rows_txt = temp + '' + param + '=' + paramVal;
+  return baseURL + '?' + newAdditionalURL + rows_txt;
+}
+
+var getParam = function getParam(param) {
+  var url = new URL(window.location.href);
+  return url.searchParams.get(param);
+};
+
+module.exports = {
+  get: getParam,
+  set: setParam
+};
 
 },{}]},{},[4])(4)
 });

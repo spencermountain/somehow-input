@@ -120,7 +120,7 @@ document.querySelector('#plusminus').innerHTML = plusMinus.build()
 
 let textarea = inputs.textarea({
   el: '#textarea',
-  width: 600,
+  width: '30rem',
   value: 'hello\nthere',
   label: 'textarea',
   cb: val => console.log(val)
