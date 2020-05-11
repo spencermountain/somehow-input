@@ -3,12 +3,6 @@
 </script>
 
 <style>
-  .text {
-    max-width: 600px;
-    min-width: 10px;
-    max-width: 20rem;
-    min-width: 10px;
-  }
   .input {
     font-family: 'avenir next', avenir, sans-serif;
     display: block;
