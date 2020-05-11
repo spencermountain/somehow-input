@@ -1,11 +1,13 @@
 <script>
-  import { Choice, Number, Tabs, Button, Text } from './src'
+  import { Choice, Number, Tabs, Button, Text, Legend } from './src'
 
   let choices = ['a', 'b', 'c']
   let choice = 'b'
 
   let text = 'foobar'
   let number = 2
+
+  let colors = { '#dedded': 'LabelA', red: 'Label2' }
 </script>
 
 <style>
@@ -44,4 +46,9 @@
 
   <h2 class="mt3">Text</h2>
   <Text bind:text />
+
+  <h2 class="mt3">Legend</h2>
+  <Legend {colors} />
+
+  <div class="mt3" />
 </div>

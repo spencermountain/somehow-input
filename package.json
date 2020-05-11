@@ -2,8 +2,7 @@
   "name": "somehow-input",
   "description": "some easy interactive svelte components",
   "version": "1.0.0",
-  "main": "builds/somehow-input.js",
-  "unpkg": "builds/somehow-input.min.js",
+  "main": "./src",
   "author": "Spencer Kelly (spencermountain)",
   "homepage": "https://github.com/spencermountain/somehow-input/",
   "repository": {
@@ -17,7 +16,7 @@
     "serve": "serve"
   },
   "files": [
-    "builds"
+    "src"
   ],
   "dependencies": {
     "spencer-color": "0.1.0"
