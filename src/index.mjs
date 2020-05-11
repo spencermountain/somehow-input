@@ -1,0 +1,5 @@
+export { default as Button } from './Button.svelte'
+export { default as Choice } from './Choice.svelte'
+export { default as Number } from './Number.svelte'
+export { default as Tabs } from './Tabs.svelte'
+export { default as Text } from './Text.svelte'

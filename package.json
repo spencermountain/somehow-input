@@ -1,7 +1,7 @@
 {
   "name": "somehow-input",
-  "description": "make infographics without thinking",
-  "version": "0.0.9",
+  "description": "some easy interactive svelte components",
+  "version": "1.0.0",
   "main": "builds/somehow-input.js",
   "unpkg": "builds/somehow-input.min.js",
   "author": "Spencer Kelly (spencermountain)",
@@ -11,27 +11,26 @@
     "url": "git://github.com/spencermountain/somehow-input/.git"
   },
   "scripts": {
-    "start": "budo scratch.js:assets/bundle.js --live",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
     "watch": "npm run start",
-    "build:demo": "browserify scratch.js -t [ babelify --presets [ @babel/preset-env ] ] | derequire > ./assets/bundle.js",
-    "build": "node ./scripts/build.js"
+    "serve": "serve"
   },
   "files": [
     "builds"
   ],
   "dependencies": {
-    "htm": "2.1.1",
-    "spencer-color": "0.1.0",
-    "vhtml": "2.1.0"
+    "spencer-color": "0.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/preset-env": "7.5.5",
-    "babelify": "10.0.0",
-    "budo": "11.6.2",
-    "derequire": "2.0.6",
-    "shelljs": "0.8.3",
-    "terser": "4.1.2"
+    "rollup": "2.7.3",
+    "@rollup/plugin-commonjs": "11.1.0",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^5.1.2",
+    "serve": "^11.3.0",
+    "svelte": "^3.0.0"
   },
   "license": "MIT"
 }
