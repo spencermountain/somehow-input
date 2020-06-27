@@ -1738,66 +1738,57 @@ var app = (function () {
     const file$6 = "src/Slider/Slider.svelte";
 
     function create_fragment$6(ctx) {
+    	let div2;
     	let div0;
     	let t0;
-    	let t1;
-    	let div3;
     	let div1;
-    	let t2;
-    	let div2;
+    	let t1;
     	let dispose;
 
     	const block = {
     		c: function create() {
-    			div0 = element("div");
-    			t0 = text(/*value*/ ctx[0]);
-    			t1 = space();
-    			div3 = element("div");
-    			div1 = element("div");
-    			t2 = space();
     			div2 = element("div");
-    			add_location(div0, file$6, 67, 0, 1514);
-    			attr_dev(div1, "class", "background svelte-jprfmr");
-    			add_location(div1, file$6, 69, 2, 1559);
-    			attr_dev(div2, "class", "handle svelte-jprfmr");
-    			set_style(div2, "left", /*percent*/ ctx[1] + "%");
-    			add_location(div2, file$6, 70, 2, 1631);
-    			attr_dev(div3, "class", "container svelte-jprfmr");
-    			add_location(div3, file$6, 68, 0, 1533);
+    			div0 = element("div");
+    			t0 = space();
+    			div1 = element("div");
+    			t1 = text(/*value*/ ctx[0]);
+    			attr_dev(div0, "class", "background svelte-1wsoacj");
+    			add_location(div0, file$6, 80, 2, 1765);
+    			attr_dev(div1, "class", "handle svelte-1wsoacj");
+    			set_style(div1, "left", /*percent*/ ctx[1] + "%");
+    			add_location(div1, file$6, 81, 2, 1837);
+    			attr_dev(div2, "class", "container svelte-1wsoacj");
+    			add_location(div2, file$6, 79, 0, 1739);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor, remount) {
-    			insert_dev(target, div0, anchor);
-    			append_dev(div0, t0);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div1);
-    			/*div1_binding*/ ctx[12](div1);
-    			append_dev(div3, t2);
-    			append_dev(div3, div2);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			/*div0_binding*/ ctx[12](div0);
+    			append_dev(div2, t0);
+    			append_dev(div2, div1);
+    			append_dev(div1, t1);
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen_dev(div1, "pointerdown", /*startClick*/ ctx[3], false, false, false),
-    				listen_dev(div2, "pointerdown", /*startClick*/ ctx[3], false, false, false)
+    				listen_dev(div0, "pointerdown", /*startClick*/ ctx[3], false, false, false),
+    				listen_dev(div1, "pointerdown", /*startClick*/ ctx[3], false, false, false)
     			];
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*value*/ 1) set_data_dev(t0, /*value*/ ctx[0]);
+    			if (dirty & /*value*/ 1) set_data_dev(t1, /*value*/ ctx[0]);
 
     			if (dirty & /*percent*/ 2) {
-    				set_style(div2, "left", /*percent*/ ctx[1] + "%");
+    				set_style(div1, "left", /*percent*/ ctx[1] + "%");
     			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div0);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(div3);
-    			/*div1_binding*/ ctx[12](null);
+    			if (detaching) detach_dev(div2);
+    			/*div0_binding*/ ctx[12](null);
     			run_all(dispose);
     		}
     	};
@@ -1822,6 +1813,7 @@ var app = (function () {
     	let dragStart = 0;
     	let el = null;
 
+    	// let status = 'init'
     	const moveHandle = function (e) {
     		if (el.isSameNode(e.target) !== true) {
     			return;
@@ -1830,6 +1822,15 @@ var app = (function () {
     		let total = e.target.clientWidth;
     		let val = e.layerX || 0;
     		$$invalidate(1, percent = val / total * 100);
+
+    		if (percent > 100) {
+    			$$invalidate(1, percent = 100);
+    		}
+
+    		if (percent < 0) {
+    			$$invalidate(1, percent = 0);
+    		}
+
     		$$invalidate(0, value = scale.backward(percent));
     	};
 
@@ -1843,13 +1844,13 @@ var app = (function () {
     	};
 
     	const stopDrag = function (e) {
-    		window.removeEventListener("mousemove", didDrag);
+    		window.removeEventListener("pointermove", didDrag);
     		window.removeEventListener("pointerup", mouseUp);
     	};
 
     	function startClick(e) {
     		dragStart = e.layerX;
-    		window.addEventListener("mousemove", didDrag);
+    		window.addEventListener("pointermove", didDrag);
     		window.addEventListener("pointerup", mouseUp);
     		moveHandle(e);
     	}
@@ -1863,7 +1864,7 @@ var app = (function () {
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("Slider", $$slots, []);
 
-    	function div1_binding($$value) {
+    	function div0_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
     			$$invalidate(2, el = $$value);
     		});
@@ -1918,7 +1919,7 @@ var app = (function () {
     		mouseUp,
     		didDrag,
     		stopDrag,
-    		div1_binding
+    		div0_binding
     	];
     }
 

@@ -7,6 +7,7 @@
   let percent = scale(value)
   let dragStart = 0
   let el = null
+  // let status = 'init'
 
   const moveHandle = function(e) {
     if (el.isSameNode(e.target) !== true) {
@@ -14,7 +15,14 @@
     }
     let total = e.target.clientWidth
     let val = e.layerX || 0
+
     percent = (val / total) * 100
+    if (percent > 100) {
+      percent = 100
+    }
+    if (percent < 0) {
+      percent = 0
+    }
     value = scale.backward(percent)
   }
   // end drag event
@@ -25,12 +33,12 @@
     moveHandle(e)
   }
   const stopDrag = function(e) {
-    window.removeEventListener('mousemove', didDrag)
+    window.removeEventListener('pointermove', didDrag)
     window.removeEventListener('pointerup', mouseUp)
   }
   function startClick(e) {
     dragStart = e.layerX
-    window.addEventListener('mousemove', didDrag)
+    window.addEventListener('pointermove', didDrag)
     window.addEventListener('pointerup', mouseUp)
     moveHandle(e)
   }
@@ -51,6 +59,7 @@
     height: 80%;
     width: 100%;
     cursor: pointer;
+    touch-action: none;
   }
   .handle {
     border-radius: 2px;
@@ -62,11 +71,15 @@
     border: 1px solid grey;
     position: relative;
     background-color: steelblue;
+    touch-action: none;
   }
 </style>
 
-<div>{value}</div>
+<!-- <div>{value}</div>
+<div>{percent}</div> -->
 <div class="container">
   <div class="background" on:pointerdown={startClick} bind:this={el} />
-  <div class="handle" style="left:{percent}%;" on:pointerdown={startClick} />
+  <div class="handle" style="left:{percent}%;" on:pointerdown={startClick}>
+    {value}
+  </div>
 </div>
