@@ -79,7 +79,5 @@
 <div>{percent}</div> -->
 <div class="container">
   <div class="background" on:pointerdown={startClick} bind:this={el} />
-  <div class="handle" style="left:{percent}%;" on:pointerdown={startClick}>
-    {value}
-  </div>
+  <div class="handle" style="left:{percent}%;" on:pointerdown={startClick} />
 </div>

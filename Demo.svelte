@@ -1,5 +1,14 @@
 <script>
-  import { Choice, Number, Tabs, Button, Text, Legend, Slider } from './src'
+  import {
+    Choice,
+    Number,
+    Tabs,
+    Button,
+    Text,
+    Legend,
+    Slider,
+    TextArea
+  } from './src'
 
   let choices = ['a', 'b', 'c']
   let choice = 'b'
@@ -9,6 +18,7 @@
   let value = 2
 
   let colors = { '#dedded': 'LabelA', red: 'Label2' }
+  let longText = `this is a test\n.red\n.green\noh yeah.`
 </script>
 
 <style>
@@ -36,6 +46,10 @@
   <h2 class="mt3">Slider</h2>
   <div style="width:80%;">
     <Slider bind:value min={0} max={200} />
+  </div>
+  <h2 class="mt3">TextArea</h2>
+  <div style="width:80%;">
+    <TextArea bind:value={longText} />
   </div>
 
   <h2 class="mt3">Number</h2>

@@ -86,6 +86,14 @@ var app = (function () {
     function set_current_component(component) {
         current_component = component;
     }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error(`Function called outside component initialization`);
+        return current_component;
+    }
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
+    }
 
     const dirty_components = [];
     const binding_callbacks = [];
@@ -1740,22 +1748,20 @@ var app = (function () {
     function create_fragment$6(ctx) {
     	let div2;
     	let div0;
-    	let t0;
+    	let t;
     	let div1;
-    	let t1;
     	let dispose;
 
     	const block = {
     		c: function create() {
     			div2 = element("div");
     			div0 = element("div");
-    			t0 = space();
+    			t = space();
     			div1 = element("div");
-    			t1 = text(/*value*/ ctx[0]);
     			attr_dev(div0, "class", "background svelte-1wsoacj");
     			add_location(div0, file$6, 80, 2, 1765);
     			attr_dev(div1, "class", "handle svelte-1wsoacj");
-    			set_style(div1, "left", /*percent*/ ctx[1] + "%");
+    			set_style(div1, "left", /*percent*/ ctx[0] + "%");
     			add_location(div1, file$6, 81, 2, 1837);
     			attr_dev(div2, "class", "container svelte-1wsoacj");
     			add_location(div2, file$6, 79, 0, 1739);
@@ -1767,21 +1773,18 @@ var app = (function () {
     			insert_dev(target, div2, anchor);
     			append_dev(div2, div0);
     			/*div0_binding*/ ctx[12](div0);
-    			append_dev(div2, t0);
+    			append_dev(div2, t);
     			append_dev(div2, div1);
-    			append_dev(div1, t1);
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen_dev(div0, "pointerdown", /*startClick*/ ctx[3], false, false, false),
-    				listen_dev(div1, "pointerdown", /*startClick*/ ctx[3], false, false, false)
+    				listen_dev(div0, "pointerdown", /*startClick*/ ctx[2], false, false, false),
+    				listen_dev(div1, "pointerdown", /*startClick*/ ctx[2], false, false, false)
     			];
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*value*/ 1) set_data_dev(t1, /*value*/ ctx[0]);
-
-    			if (dirty & /*percent*/ 2) {
-    				set_style(div1, "left", /*percent*/ ctx[1] + "%");
+    			if (dirty & /*percent*/ 1) {
+    				set_style(div1, "left", /*percent*/ ctx[0] + "%");
     			}
     		},
     		i: noop,
@@ -1821,17 +1824,17 @@ var app = (function () {
 
     		let total = e.target.clientWidth;
     		let val = e.layerX || 0;
-    		$$invalidate(1, percent = val / total * 100);
+    		$$invalidate(0, percent = val / total * 100);
 
     		if (percent > 100) {
-    			$$invalidate(1, percent = 100);
+    			$$invalidate(0, percent = 100);
     		}
 
     		if (percent < 0) {
-    			$$invalidate(1, percent = 0);
+    			$$invalidate(0, percent = 0);
     		}
 
-    		$$invalidate(0, value = scale.backward(percent));
+    		$$invalidate(3, value = scale.backward(percent));
     	};
 
     	// end drag event
@@ -1866,12 +1869,12 @@ var app = (function () {
 
     	function div0_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
-    			$$invalidate(2, el = $$value);
+    			$$invalidate(1, el = $$value);
     		});
     	}
 
     	$$self.$set = $$props => {
-    		if ("value" in $$props) $$invalidate(0, value = $$props.value);
+    		if ("value" in $$props) $$invalidate(3, value = $$props.value);
     		if ("max" in $$props) $$invalidate(4, max = $$props.max);
     		if ("min" in $$props) $$invalidate(5, min = $$props.min);
     	};
@@ -1893,13 +1896,13 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("value" in $$props) $$invalidate(0, value = $$props.value);
+    		if ("value" in $$props) $$invalidate(3, value = $$props.value);
     		if ("max" in $$props) $$invalidate(4, max = $$props.max);
     		if ("min" in $$props) $$invalidate(5, min = $$props.min);
     		if ("scale" in $$props) scale = $$props.scale;
-    		if ("percent" in $$props) $$invalidate(1, percent = $$props.percent);
+    		if ("percent" in $$props) $$invalidate(0, percent = $$props.percent);
     		if ("dragStart" in $$props) dragStart = $$props.dragStart;
-    		if ("el" in $$props) $$invalidate(2, el = $$props.el);
+    		if ("el" in $$props) $$invalidate(1, el = $$props.el);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1907,10 +1910,10 @@ var app = (function () {
     	}
 
     	return [
-    		value,
     		percent,
     		el,
     		startClick,
+    		value,
     		max,
     		min,
     		dragStart,
@@ -1926,7 +1929,7 @@ var app = (function () {
     class Slider extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { value: 0, max: 4, min: 5 });
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { value: 3, max: 4, min: 5 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1961,13 +1964,146 @@ var app = (function () {
     	}
     }
 
+    /* src/TextArea.svelte generated by Svelte v3.22.2 */
+    const file$7 = "src/TextArea.svelte";
+
+    function create_fragment$7(ctx) {
+    	let textarea;
+
+    	const block = {
+    		c: function create() {
+    			textarea = element("textarea");
+    			attr_dev(textarea, "class", "input svelte-1jvgjdt");
+    			attr_dev(textarea, "spellcheck", "false");
+    			attr_dev(textarea, "type", "text");
+    			textarea.value = /*value*/ ctx[0];
+    			add_location(textarea, file$7, 61, 0, 1388);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, textarea, anchor);
+    			/*textarea_binding*/ ctx[3](textarea);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*value*/ 1) {
+    				prop_dev(textarea, "value", /*value*/ ctx[0]);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(textarea);
+    			/*textarea_binding*/ ctx[3](null);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$7.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function text_area_resize(el) {
+    	function resize({ target }) {
+    		target.style.height = "1px";
+    		target.style.height = +target.scrollHeight + "px";
+    	}
+
+    	resize({ target: el });
+    	el.style.overflow = "hidden";
+    	el.addEventListener("input", resize);
+
+    	return {
+    		destroy: () => el.removeEventListener("input", resize)
+    	};
+    }
+
+    function instance$7($$self, $$props, $$invalidate) {
+    	let { value = "" } = $$props;
+    	let el;
+
+    	onMount(() => {
+    		text_area_resize(el);
+    	});
+
+    	const writable_props = ["value"];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<TextArea> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("TextArea", $$slots, []);
+
+    	function textarea_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			$$invalidate(1, el = $$value);
+    		});
+    	}
+
+    	$$self.$set = $$props => {
+    		if ("value" in $$props) $$invalidate(0, value = $$props.value);
+    	};
+
+    	$$self.$capture_state = () => ({ onMount, value, el, text_area_resize });
+
+    	$$self.$inject_state = $$props => {
+    		if ("value" in $$props) $$invalidate(0, value = $$props.value);
+    		if ("el" in $$props) $$invalidate(1, el = $$props.el);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [value, el, text_area_resize, textarea_binding];
+    }
+
+    class TextArea extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$7, create_fragment$7, safe_not_equal, { value: 0, text_area_resize: 2 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "TextArea",
+    			options,
+    			id: create_fragment$7.name
+    		});
+    	}
+
+    	get value() {
+    		throw new Error("<TextArea>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set value(value) {
+    		throw new Error("<TextArea>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get text_area_resize() {
+    		return text_area_resize;
+    	}
+
+    	set text_area_resize(value) {
+    		throw new Error("<TextArea>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
     /* Demo.svelte generated by Svelte v3.22.2 */
 
     const { console: console_1 } = globals;
-    const file$7 = "Demo.svelte";
 
-    function create_fragment$7(ctx) {
-    	let div4;
+    const file$8 = "Demo.svelte";
+
+    function create_fragment$8(ctx) {
+    	let div5;
     	let div0;
     	let a;
     	let t1;
@@ -1980,31 +2116,36 @@ var app = (function () {
     	let t6;
     	let h21;
     	let t8;
-    	let updating_number;
+    	let div3;
+    	let updating_value_1;
     	let t9;
     	let h22;
     	let t11;
+    	let updating_number;
     	let t12;
     	let h23;
     	let t14;
-    	let updating_choice;
     	let t15;
     	let h24;
     	let t17;
-    	let updating_choice_1;
+    	let updating_choice;
     	let t18;
     	let h25;
     	let t20;
-    	let updating_text;
+    	let updating_choice_1;
     	let t21;
     	let h26;
     	let t23;
+    	let updating_text;
     	let t24;
-    	let div3;
+    	let h27;
+    	let t26;
+    	let t27;
+    	let div4;
     	let current;
 
     	function slider_value_binding(value) {
-    		/*slider_value_binding*/ ctx[6].call(null, value);
+    		/*slider_value_binding*/ ctx[7].call(null, value);
     	}
 
     	let slider_props = { min: 0, max: 200 };
@@ -2016,8 +2157,21 @@ var app = (function () {
     	const slider = new Slider({ props: slider_props, $$inline: true });
     	binding_callbacks.push(() => bind(slider, "value", slider_value_binding));
 
+    	function textarea_value_binding(value) {
+    		/*textarea_value_binding*/ ctx[8].call(null, value);
+    	}
+
+    	let textarea_props = {};
+
+    	if (/*longText*/ ctx[4] !== void 0) {
+    		textarea_props.value = /*longText*/ ctx[4];
+    	}
+
+    	const textarea = new TextArea({ props: textarea_props, $$inline: true });
+    	binding_callbacks.push(() => bind(textarea, "value", textarea_value_binding));
+
     	function number_1_number_binding(value) {
-    		/*number_1_number_binding*/ ctx[7].call(null, value);
+    		/*number_1_number_binding*/ ctx[9].call(null, value);
     	}
 
     	let number_1_props = {
@@ -2038,16 +2192,16 @@ var app = (function () {
     			props: {
     				label: "hi",
     				color: "red",
-    				onClick: /*func*/ ctx[8]
+    				onClick: /*func*/ ctx[10]
     			},
     			$$inline: true
     		});
 
     	function choice_1_choice_binding(value) {
-    		/*choice_1_choice_binding*/ ctx[9].call(null, value);
+    		/*choice_1_choice_binding*/ ctx[11].call(null, value);
     	}
 
-    	let choice_1_props = { choices: /*choices*/ ctx[4] };
+    	let choice_1_props = { choices: /*choices*/ ctx[5] };
 
     	if (/*choice*/ ctx[0] !== void 0) {
     		choice_1_props.choice = /*choice*/ ctx[0];
@@ -2057,11 +2211,11 @@ var app = (function () {
     	binding_callbacks.push(() => bind(choice_1, "choice", choice_1_choice_binding));
 
     	function tabs_choice_binding(value) {
-    		/*tabs_choice_binding*/ ctx[10].call(null, value);
+    		/*tabs_choice_binding*/ ctx[12].call(null, value);
     	}
 
     	let tabs_props = {
-    		choices: /*choices*/ ctx[4],
+    		choices: /*choices*/ ctx[5],
     		hasKeyboard: false
     	};
 
@@ -2073,7 +2227,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(tabs, "choice", tabs_choice_binding));
 
     	function text_1_text_binding(value) {
-    		/*text_1_text_binding*/ ctx[11].call(null, value);
+    		/*text_1_text_binding*/ ctx[13].call(null, value);
     	}
 
     	let text_1_props = {};
@@ -2086,13 +2240,13 @@ var app = (function () {
     	binding_callbacks.push(() => bind(text_1, "text", text_1_text_binding));
 
     	const legend = new Legend({
-    			props: { colors: /*colors*/ ctx[5] },
+    			props: { colors: /*colors*/ ctx[6] },
     			$$inline: true
     		});
 
     	const block = {
     		c: function create() {
-    			div4 = element("div");
+    			div5 = element("div");
     			div0 = element("div");
     			a = element("a");
     			a.textContent = "somehow-input";
@@ -2107,101 +2261,116 @@ var app = (function () {
     			create_component(slider.$$.fragment);
     			t6 = space();
     			h21 = element("h2");
-    			h21.textContent = "Number";
+    			h21.textContent = "TextArea";
     			t8 = space();
-    			create_component(number_1.$$.fragment);
+    			div3 = element("div");
+    			create_component(textarea.$$.fragment);
     			t9 = space();
     			h22 = element("h2");
-    			h22.textContent = "Button";
+    			h22.textContent = "Number";
     			t11 = space();
-    			create_component(button.$$.fragment);
+    			create_component(number_1.$$.fragment);
     			t12 = space();
     			h23 = element("h2");
-    			h23.textContent = "Choice";
+    			h23.textContent = "Button";
     			t14 = space();
-    			create_component(choice_1.$$.fragment);
+    			create_component(button.$$.fragment);
     			t15 = space();
     			h24 = element("h2");
-    			h24.textContent = "Tabs";
+    			h24.textContent = "Choice";
     			t17 = space();
-    			create_component(tabs.$$.fragment);
+    			create_component(choice_1.$$.fragment);
     			t18 = space();
     			h25 = element("h2");
-    			h25.textContent = "Text";
+    			h25.textContent = "Tabs";
     			t20 = space();
-    			create_component(text_1.$$.fragment);
+    			create_component(tabs.$$.fragment);
     			t21 = space();
     			h26 = element("h2");
-    			h26.textContent = "Legend";
+    			h26.textContent = "Text";
     			t23 = space();
-    			create_component(legend.$$.fragment);
+    			create_component(text_1.$$.fragment);
     			t24 = space();
-    			div3 = element("div");
+    			h27 = element("h2");
+    			h27.textContent = "Legend";
+    			t26 = space();
+    			create_component(legend.$$.fragment);
+    			t27 = space();
+    			div4 = element("div");
     			attr_dev(a, "href", "https://github.com/spencermountain/somehow-input");
-    			add_location(a, file$7, 31, 4, 558);
-    			add_location(div0, file$7, 30, 2, 548);
-    			add_location(div1, file$7, 33, 2, 646);
+    			add_location(a, file$8, 41, 4, 660);
+    			add_location(div0, file$8, 40, 2, 650);
+    			add_location(div1, file$8, 43, 2, 748);
     			attr_dev(h20, "class", "mt3 svelte-iy82y4");
-    			add_location(h20, file$7, 35, 2, 695);
+    			add_location(h20, file$8, 45, 2, 797);
     			set_style(div2, "width", "80%");
-    			add_location(div2, file$7, 36, 2, 725);
+    			add_location(div2, file$8, 46, 2, 827);
     			attr_dev(h21, "class", "mt3 svelte-iy82y4");
-    			add_location(h21, file$7, 40, 2, 806);
+    			add_location(h21, file$8, 49, 2, 907);
+    			set_style(div3, "width", "80%");
+    			add_location(div3, file$8, 50, 2, 939);
     			attr_dev(h22, "class", "mt3 svelte-iy82y4");
-    			add_location(h22, file$7, 43, 2, 916);
+    			add_location(h22, file$8, 54, 2, 1015);
     			attr_dev(h23, "class", "mt3 svelte-iy82y4");
-    			add_location(h23, file$7, 46, 2, 1017);
+    			add_location(h23, file$8, 57, 2, 1125);
     			attr_dev(h24, "class", "mt3 svelte-iy82y4");
-    			add_location(h24, file$7, 49, 2, 1083);
+    			add_location(h24, file$8, 60, 2, 1226);
     			attr_dev(h25, "class", "mt3 svelte-iy82y4");
-    			add_location(h25, file$7, 52, 2, 1165);
+    			add_location(h25, file$8, 63, 2, 1292);
     			attr_dev(h26, "class", "mt3 svelte-iy82y4");
-    			add_location(h26, file$7, 55, 2, 1215);
-    			attr_dev(div3, "class", "mt3 svelte-iy82y4");
-    			add_location(div3, file$7, 58, 2, 1268);
-    			attr_dev(div4, "class", "col svelte-iy82y4");
-    			add_location(div4, file$7, 29, 0, 528);
+    			add_location(h26, file$8, 66, 2, 1374);
+    			attr_dev(h27, "class", "mt3 svelte-iy82y4");
+    			add_location(h27, file$8, 69, 2, 1424);
+    			attr_dev(div4, "class", "mt3 svelte-iy82y4");
+    			add_location(div4, file$8, 72, 2, 1477);
+    			attr_dev(div5, "class", "col svelte-iy82y4");
+    			add_location(div5, file$8, 39, 0, 630);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div4, anchor);
-    			append_dev(div4, div0);
+    			insert_dev(target, div5, anchor);
+    			append_dev(div5, div0);
     			append_dev(div0, a);
-    			append_dev(div4, t1);
-    			append_dev(div4, div1);
-    			append_dev(div4, t3);
-    			append_dev(div4, h20);
-    			append_dev(div4, t5);
-    			append_dev(div4, div2);
+    			append_dev(div5, t1);
+    			append_dev(div5, div1);
+    			append_dev(div5, t3);
+    			append_dev(div5, h20);
+    			append_dev(div5, t5);
+    			append_dev(div5, div2);
     			mount_component(slider, div2, null);
-    			append_dev(div4, t6);
-    			append_dev(div4, h21);
-    			append_dev(div4, t8);
-    			mount_component(number_1, div4, null);
-    			append_dev(div4, t9);
-    			append_dev(div4, h22);
-    			append_dev(div4, t11);
-    			mount_component(button, div4, null);
-    			append_dev(div4, t12);
-    			append_dev(div4, h23);
-    			append_dev(div4, t14);
-    			mount_component(choice_1, div4, null);
-    			append_dev(div4, t15);
-    			append_dev(div4, h24);
-    			append_dev(div4, t17);
-    			mount_component(tabs, div4, null);
-    			append_dev(div4, t18);
-    			append_dev(div4, h25);
-    			append_dev(div4, t20);
-    			mount_component(text_1, div4, null);
-    			append_dev(div4, t21);
-    			append_dev(div4, h26);
-    			append_dev(div4, t23);
-    			mount_component(legend, div4, null);
-    			append_dev(div4, t24);
-    			append_dev(div4, div3);
+    			append_dev(div5, t6);
+    			append_dev(div5, h21);
+    			append_dev(div5, t8);
+    			append_dev(div5, div3);
+    			mount_component(textarea, div3, null);
+    			append_dev(div5, t9);
+    			append_dev(div5, h22);
+    			append_dev(div5, t11);
+    			mount_component(number_1, div5, null);
+    			append_dev(div5, t12);
+    			append_dev(div5, h23);
+    			append_dev(div5, t14);
+    			mount_component(button, div5, null);
+    			append_dev(div5, t15);
+    			append_dev(div5, h24);
+    			append_dev(div5, t17);
+    			mount_component(choice_1, div5, null);
+    			append_dev(div5, t18);
+    			append_dev(div5, h25);
+    			append_dev(div5, t20);
+    			mount_component(tabs, div5, null);
+    			append_dev(div5, t21);
+    			append_dev(div5, h26);
+    			append_dev(div5, t23);
+    			mount_component(text_1, div5, null);
+    			append_dev(div5, t24);
+    			append_dev(div5, h27);
+    			append_dev(div5, t26);
+    			mount_component(legend, div5, null);
+    			append_dev(div5, t27);
+    			append_dev(div5, div4);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -2214,6 +2383,15 @@ var app = (function () {
     			}
 
     			slider.$set(slider_changes);
+    			const textarea_changes = {};
+
+    			if (!updating_value_1 && dirty & /*longText*/ 16) {
+    				updating_value_1 = true;
+    				textarea_changes.value = /*longText*/ ctx[4];
+    				add_flush_callback(() => updating_value_1 = false);
+    			}
+
+    			textarea.$set(textarea_changes);
     			const number_1_changes = {};
 
     			if (!updating_number && dirty & /*number*/ 4) {
@@ -2254,6 +2432,7 @@ var app = (function () {
     		i: function intro(local) {
     			if (current) return;
     			transition_in(slider.$$.fragment, local);
+    			transition_in(textarea.$$.fragment, local);
     			transition_in(number_1.$$.fragment, local);
     			transition_in(button.$$.fragment, local);
     			transition_in(choice_1.$$.fragment, local);
@@ -2264,6 +2443,7 @@ var app = (function () {
     		},
     		o: function outro(local) {
     			transition_out(slider.$$.fragment, local);
+    			transition_out(textarea.$$.fragment, local);
     			transition_out(number_1.$$.fragment, local);
     			transition_out(button.$$.fragment, local);
     			transition_out(choice_1.$$.fragment, local);
@@ -2273,8 +2453,9 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div4);
+    			if (detaching) detach_dev(div5);
     			destroy_component(slider);
+    			destroy_component(textarea);
     			destroy_component(number_1);
     			destroy_component(button);
     			destroy_component(choice_1);
@@ -2286,7 +2467,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$7.name,
+    		id: create_fragment$8.name,
     		type: "component",
     		source: "",
     		ctx
@@ -2295,13 +2476,14 @@ var app = (function () {
     	return block;
     }
 
-    function instance$7($$self, $$props, $$invalidate) {
+    function instance$8($$self, $$props, $$invalidate) {
     	let choices = ["a", "b", "c"];
     	let choice = "b";
     	let text = "foobar";
     	let number = 2;
     	let value = 2;
     	let colors = { "#dedded": "LabelA", red: "Label2" };
+    	let longText = `this is a test\n.red\n.green\noh yeah.`;
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -2314,6 +2496,11 @@ var app = (function () {
     	function slider_value_binding(value$1) {
     		value = value$1;
     		$$invalidate(3, value);
+    	}
+
+    	function textarea_value_binding(value) {
+    		longText = value;
+    		$$invalidate(4, longText);
     	}
 
     	function number_1_number_binding(value) {
@@ -2346,21 +2533,24 @@ var app = (function () {
     		Text,
     		Legend,
     		Slider,
+    		TextArea,
     		choices,
     		choice,
     		text,
     		number,
     		value,
-    		colors
+    		colors,
+    		longText
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("choices" in $$props) $$invalidate(4, choices = $$props.choices);
+    		if ("choices" in $$props) $$invalidate(5, choices = $$props.choices);
     		if ("choice" in $$props) $$invalidate(0, choice = $$props.choice);
     		if ("text" in $$props) $$invalidate(1, text = $$props.text);
     		if ("number" in $$props) $$invalidate(2, number = $$props.number);
     		if ("value" in $$props) $$invalidate(3, value = $$props.value);
-    		if ("colors" in $$props) $$invalidate(5, colors = $$props.colors);
+    		if ("colors" in $$props) $$invalidate(6, colors = $$props.colors);
+    		if ("longText" in $$props) $$invalidate(4, longText = $$props.longText);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -2372,9 +2562,11 @@ var app = (function () {
     		text,
     		number,
     		value,
+    		longText,
     		choices,
     		colors,
     		slider_value_binding,
+    		textarea_value_binding,
     		number_1_number_binding,
     		func,
     		choice_1_choice_binding,
@@ -2386,13 +2578,13 @@ var app = (function () {
     class Demo extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$7, create_fragment$7, safe_not_equal, {});
+    		init(this, options, instance$8, create_fragment$8, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Demo",
     			options,
-    			id: create_fragment$7.name
+    			id: create_fragment$8.name
     		});
     	}
     }
