@@ -1,11 +1,12 @@
 <script>
-  import { Choice, Number, Tabs, Button, Text, Legend } from './src'
+  import { Choice, Number, Tabs, Button, Text, Legend, Slider } from './src'
 
   let choices = ['a', 'b', 'c']
   let choice = 'b'
 
   let text = 'foobar'
   let number = 2
+  let value = 2
 
   let colors = { '#dedded': 'LabelA', red: 'Label2' }
 </script>
@@ -31,6 +32,11 @@
     <a href="https://github.com/spencermountain/somehow-input">somehow-input</a>
   </div>
   <div>some handy svelte input components</div>
+
+  <h2 class="mt3">Slider</h2>
+  <div style="width:80%;">
+    <Slider bind:value min={0} max={200} />
+  </div>
 
   <h2 class="mt3">Number</h2>
   <Number bind:number min={1} max={4} hasSlider={false} hasKeyboard={false} />
