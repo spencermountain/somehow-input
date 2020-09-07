@@ -58,6 +58,8 @@ choose between an array of choices
 <Choice bind:choice {choices} />
 ```
 
+![image](https://user-images.githubusercontent.com/399657/92410241-7c473180-f111-11ea-8101-fcab4b122f1e.png)
+
 ### Text
 
 ```html

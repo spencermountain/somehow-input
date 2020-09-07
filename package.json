@@ -1,7 +1,7 @@
 {
   "name": "somehow-input",
   "description": "some easy interactive svelte components",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "./src/index.mjs",
   "module": "./src/index.mjs",
   "author": "Spencer Kelly (spencermountain)",
