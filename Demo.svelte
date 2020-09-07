@@ -18,7 +18,7 @@
   let value = 2
 
   let colors = { '#dedded': 'LabelA', red: 'Label2' }
-  let longText = `this is a test\n.red\n.green\noh yeah.`
+  let longText = `this is a test\n.red\n.green\noh yeah.\nthis is a test\n.red\n.green\noh yeah.\nthis is a test\n.red\n.green\noh yeah.\nthis is a test\n.red\n.green\noh yeah.`
 </script>
 
 <style>
@@ -39,7 +39,11 @@
 
 <div class="col">
   <div>
-    <a href="https://github.com/spencermountain/somehow-input">somehow-input</a>
+    <a
+      style="font-size:2rem; color:steelblue; margin-top:2rem;"
+      href="https://github.com/spencermountain/somehow-input">
+      somehow-input
+    </a>
   </div>
   <div>some handy svelte input components</div>
 

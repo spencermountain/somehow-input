@@ -1,5 +1,13 @@
 <script>
   export let text = ''
+  import { createEventDispatcher } from 'svelte'
+  // boilerplate required to produce events
+  const dispatch = createEventDispatcher()
+  // made up event handler
+  function onChange() {
+    // fire event named 'message'
+    dispatch('change', {})
+  }
 </script>
 
 <style>

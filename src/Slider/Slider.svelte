@@ -10,10 +10,11 @@
   // let status = 'init'
 
   const moveHandle = function(e) {
-    if (el.isSameNode(e.target) !== true) {
+    if (el.isSameNode(e.target) === true) {
       return
     }
     let total = e.target.clientWidth
+    console.log(e)
     let val = e.layerX || 0
 
     percent = (val / total) * 100
@@ -47,22 +48,22 @@
 <style>
   .container {
     position: relative;
-    height: 50px;
+    height: 40px;
     width: 100%;
+    cursor: pointer;
   }
   .background {
     position: absolute;
     background-color: lightgrey;
-    border-radius: 2px;
+    border-radius: 8px;
     box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.2);
-    top: 10%;
-    height: 80%;
+    top: 33%;
+    height: 33%;
     width: 100%;
-    cursor: pointer;
     touch-action: none;
   }
   .handle {
-    border-radius: 2px;
+    border-radius: 8px;
     box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.2);
     position: absolute;
     width: 15px;
@@ -77,7 +78,11 @@
 
 <!-- <div>{value}</div>
 <div>{percent}</div> -->
-<div class="container">
-  <div class="background" on:pointerdown={startClick} bind:this={el} />
-  <div class="handle" style="left:{percent}%;" on:pointerdown={startClick} />
+<div class="container" on:pointerdown={startClick}>
+  <div class="background" />
+  <div
+    class="handle"
+    style="left:{percent}%;"
+    on:pointerdown={startClick}
+    bind:this={el} />
 </div>
