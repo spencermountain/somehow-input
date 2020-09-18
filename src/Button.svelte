@@ -1,6 +1,7 @@
 <script>
   export let label = ''
   export let color = ''
+  export let onClick = () => {}
 </script>
 
 <style>
@@ -36,4 +37,6 @@
   }
 </style>
 
-<div class="button grey pointer ullighter b3 white" style="">{label}</div>
+<div class="button grey pointer ullighter b3 white" on:click={onClick} style="">
+  {label}
+</div>

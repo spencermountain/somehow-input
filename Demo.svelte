@@ -7,6 +7,7 @@
     Text,
     Legend,
     Slider,
+    NHL,
     TextArea
   } from './src'
 
@@ -25,14 +26,15 @@
   .col {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 3rem;
     text-align: center;
     flex-wrap: wrap;
     align-self: stretch;
   }
-  .mt3 {
-    margin-top: 3rem;
+  .mt5 {
+    margin-top: 14rem;
     margin-bottom: 3rem;
   }
 </style>
@@ -47,32 +49,38 @@
   </div>
   <div>some handy svelte input components</div>
 
-  <h2 class="mt3">Slider</h2>
+  <h4 class="mt5">NHL-team selector</h4>
+  <div style="width:80%;">
+    <NHL />
+  </div>
+
+  <h4 class="mt5">Slider</h4>
   <div style="width:80%;">
     <Slider bind:value min={0} max={200} />
   </div>
-  <h2 class="mt3">TextArea</h2>
+
+  <h4 class="mt5">TextArea</h4>
   <div style="width:80%;">
     <TextArea bind:value={longText} />
   </div>
 
-  <h2 class="mt3">Number</h2>
+  <h4 class="mt5">Number</h4>
   <Number bind:number min={1} max={4} hasSlider={false} hasKeyboard={false} />
 
-  <h2 class="mt3">Button</h2>
+  <h4 class="mt5">Button</h4>
   <Button label="hi" color="red" onClick={() => console.log('hi')} />
 
-  <h2 class="mt3">Choice</h2>
+  <h4 class="mt5">Choice</h4>
   <Choice bind:choice {choices} />
 
-  <h2 class="mt3">Tabs</h2>
-  <Tabs bind:choice {choices} hasKeyboard={false} />
+  <h4 class="mt5">Tabs</h4>
+  <Tabs bind:choice {choices} />
 
-  <h2 class="mt3">Text</h2>
+  <h4 class="mt5">Text</h4>
   <Text bind:text />
 
-  <h2 class="mt3">Legend</h2>
+  <h4 class="mt5">Legend</h4>
   <Legend {colors} />
 
-  <div class="mt3" />
+  <div class="mt5" />
 </div>
