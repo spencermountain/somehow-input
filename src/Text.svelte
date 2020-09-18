@@ -41,4 +41,4 @@
   }
 </style>
 
-<input class="input" style="" type="text" value={text} />
+<input class="input" style="" type="text" bind:value={text} />

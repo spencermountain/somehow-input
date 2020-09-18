@@ -6,7 +6,6 @@
     Button,
     Text,
     Legend,
-    Slider,
     NHL,
     TextArea
   } from './src'
@@ -18,7 +17,11 @@
   let number = 2
   let value = 2
 
-  let colors = { '#dedded': 'LabelA', red: 'Label2' }
+  let colors = {
+    '#dedded': 'Label 1',
+    '#72697D': 'Label 2',
+    '#AB5850': 'Label 3'
+  }
   let longText = `this is a test\n.red\n.green\noh yeah.\nthis is a test\n.red\n.green\noh yeah.\nthis is a test\n.red\n.green\noh yeah.\nthis is a test\n.red\n.green\noh yeah.`
 </script>
 
@@ -54,18 +57,13 @@
     <NHL />
   </div>
 
-  <h4 class="mt5">Slider</h4>
-  <div style="width:80%;">
-    <Slider bind:value min={0} max={200} />
-  </div>
-
   <h4 class="mt5">TextArea</h4>
   <div style="width:80%;">
     <TextArea bind:value={longText} />
   </div>
 
   <h4 class="mt5">Number</h4>
-  <Number bind:number min={1} max={4} hasSlider={false} hasKeyboard={false} />
+  <Number bind:number min={1} max={40} hasSlider={false} hasKeyboard={false} />
 
   <h4 class="mt5">Button</h4>
   <Button label="hi" color="red" onClick={() => console.log('hi')} />
