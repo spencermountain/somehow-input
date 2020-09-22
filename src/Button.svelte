@@ -1,6 +1,6 @@
 <script>
   export let label = ''
-  export let color = ''
+  // export let color = ''
   export let onClick = () => {}
 </script>
 

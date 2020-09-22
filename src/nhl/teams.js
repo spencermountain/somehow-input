@@ -1,4 +1,4 @@
-import { colors as c } from 'spencer-color'
+import c from 'spencer-color'
 
 export default {
   atlantic: [

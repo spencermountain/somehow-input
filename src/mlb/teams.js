@@ -1,4 +1,4 @@
-const c = require('spencer-color')
+import c from 'spencer-color'
 
 export default {
   aleast: [

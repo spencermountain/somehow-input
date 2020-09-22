@@ -1,8 +1,20 @@
 <script>
   export let text = ''
+  let tmp = text
+  export let delay = 0
+  let timer = null
+
   import { createEventDispatcher } from 'svelte'
   // boilerplate required to produce events
   const dispatch = createEventDispatcher()
+
+  const debounce = e => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      text = tmp
+    }, delay)
+  }
+
   // made up event handler
   function onChange() {
     // fire event named 'message'
@@ -41,4 +53,10 @@
   }
 </style>
 
-<input class="input" style="" type="text" bind:value={text} />
+<input
+  class="input"
+  style=""
+  type="text"
+  on:keyup={debounce}
+  bind:value={tmp} />
+<!--   -->
